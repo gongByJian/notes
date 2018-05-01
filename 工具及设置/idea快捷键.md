@@ -1,16 +1,18 @@
 ##### 快捷键
-    设置 ctrl+ alt+S 
-    列出方法 CTRL+F12   
-    自动提示代码实现接口方法 CTRL+1 = ALT+ENTER 
-    在当前行上创建一行 CTRL+ENTER
-    在当前行下创建一行 SHIFT+ENTER
-    删除行 CTRL+X
-    重命名 SHIFT+F6
+    设置 ctrl + alt + S 
+    列出方法 CTRL + F12   
+    自动提示代码实现接口方法 CTRL + 1 = ALT + ENTER 
+    在当前行上创建一行 CTRL + ENTER
+    在当前行下创建一行 SHIFT + ENTER
+    删除行 CTRL + Y
+	复制行 CTRL + D
+    重命名 SHIFT + F6
+	查找文件 CTRL + SHEFT + N
     上下移动代码 CTRL + SHIFT + 上下键
     打开光标处的类或方法CTRL + B, CTRL + ALT + B 进入接口或者抽象类的实现类
-    F3查找
+    F3 查找
 	F4 查找变量来源
-    ALT + 回车  导入包,自动修正
+    ALT + ENTER  导包,自动修正
     CTRL + H 查看类的继承关系。 
     CTRL + Q 显示注释文档（跟eclipse鼠标放到类、方法、字段显示的内容一样）
     CTRL + W 选中代码，连续按会有其他效果

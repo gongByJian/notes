@@ -55,4 +55,5 @@
 	Settings --> General 页面中，勾掉 Reopen last project on startup 选项。
 
 ##### SVN添加项目报错（CreateProccess error=2 后面还有乱码） ####
-	Version Control --> Subversion 页面中勾掉“Use commmand line client:”选项后，就可以了，然后会提示你选择svn 1.6、svn 1.7、svn 1.8等版本。（好像只有Idea 13 才有这个问题）
+	Version Control --> Subversion 页面中勾掉“Use commmand line client:”选项后，
+	就可以了，然后会提示你选择svn 1.6、svn 1.7、svn 1.8等版本。（好像只有Idea 13 才有这个问题）
