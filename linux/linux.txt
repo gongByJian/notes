@@ -1,0 +1,1775 @@
+使用命令：rpm -aq查看所有软件；查看指定名字的软件：rpm -aq|grep 软件名；可以使用：rpm --help查看详细参数
+
+rpm 安装卸载
+  rpm -qa|grep jdk 查看安装jdk版本
+  rpm -q jdk 查看安装jdk版本
+  rpm -e jdk-1.5.0_07-fcs 卸载jdk
+  rpm -e sendmail --nodeps 强行卸载
+
+命令             功能
+pwd            判定当前目录
+cd             改变所在目录
+ls             查看目录下的内容
+cat            显示文件的内容
+grep           在文件中查找某字符
+touch          创建文件
+cp             复制文件
+mv             移动文件
+rm             删除文件
+sz             下载文件
+
+
+ps -ef|grep lc_sanbiao_9101|grep -v "grep"|awk '{print $2}'
+
+ps命令
+
+ 1）ps a 显示现行终端机下的所有程序，包括其他用户的程序。
+
+ 2）ps -A 显示所有程序。
+
+ 3）ps c 列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。
+
+ 4）ps -e 此参数的效果和指定"A"参数相同。
+
+ 5）ps e 列出程序时，显示每个程序所使用的环境变量。
+
+ 6）ps f 用ASCII字符显示树状结构，表达程序间的相互关系。
+
+ 7）ps -H 显示树状结构，表示程序间的相互关系。
+
+ 8）ps -N 显示所有的程序，除了执行ps指令终端机下的程序之外。
+
+ 9）ps s 采用程序信号的格式显示程序状况。
+
+ 10）ps S 列出程序时，包括已中断的子程序资料。
+
+ 11）ps -t<终端机编号> 　指定终端机编号，并列出属于该终端机的程序的状况。
+
+ 12）ps u 　以用户为主的格式来显示程序状况。
+
+ 13）ps x 　显示所有程序，不以终端机来区分。
+
+
+
+ ps -ef|grep java
+
+ 用户名 PID  SID 进程的cpu占用率 进程启动时间和日期 与进程关联的终端（tty） 进程使用的总cpu时间  正在执行的命令行命令
+
+
+ ps aux 
+
+  USER    PID   %CPU %MEM VSZ   RSS TTY    STAT   START TIME COMMAND
+
+
+
+  USER域指明了是哪个用户启动了这个命令;
+
+  用户可以查看某个进程占用了多少CPU;
+
+  内存使用及其VSZ（虚拟内存大小）和RSS（常驻集大小）:
+
+  VSZ表示如果一个程序完全驻留在内存的话需要占用多少内存空间;
+
+  RSS指明了当前实际占用了多少内存;
+
+  STAT显示了进程当前的状态
+
+ stat 中的参数意义如下：
+
+ D 不可中断 Uninterruptible（usually IO）
+
+ R 正在运行，或在队列中的进程
+
+ S 处于休眠状态
+
+ T 停止或被追踪
+
+ Z 僵尸进程
+
+ W 进入内存交换（从内核2.6开始无效）
+
+ X 死掉的进程
+
+
+
+ < 高优先级
+
+ n   低优先级
+
+ s   包含子进程
+
+ +   位于后台的进程组
+
+ ------------------------------------------
+
+ctrl + w ---往回删除一个单词，光标放在最末尾
+
+ctrl + k ---往前删除到末尾，光标放在最前面（可以使用ctrl+a）
+ 
+
+ctl + u 删除光标以前的字符
+ctl + k 删除光标以后的字符
+ctl + a 移动光标至的字符头
+ctl + e 移动光标至的字符尾
+ctl + l 清屏
+
+
+
+tar的打包解包
+
+ tar在linux上是常用的打包、压缩、加压缩工具，他的参数很多，折里仅仅列举常用的压缩与解压缩参数
+
+
+ 参数：
+
+ -c ：create 建立压缩档案的参数；
+
+ -x ： 解压缩压缩档案的参数；
+
+ -z ： 是否需用用gzip压缩；
+
+ -v： 压缩的过程中显示档案；
+
+ -f： 置顶文档名，在f后面立即接文件名，不能再加参数
+
+
+
+ 举例： 一，将整个/home/www/images 目录下的文件全部打包为 /home/www/images.tar
+
+ # tar -cvf /home/www/images.tar /home/www/images ← 仅打包，不压缩
+
+ # tar -zcvf /home/www/images.tar.gz /home/www/images ← 打包后，以gzip压缩
+
+ 在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar file文件
+
+
+
+ 举例： 二,将 /home/www/images.tar.gz 解压到/home/www下面
+
+ # cd /home/www
+
+ # tar -zxvf /home/images.tar.gz
+
+
+ 解压到指定的目录
+
+ tar -zxvf /home/images.tar.gz -C /specific dir
+
+
+ 解包到指定的目录
+
+ tar xvf filename.tar -C /specific dir
+
+
+
+cat查看文件 显示行号
+
+  [root@iZ25yx040zrZ conf]# cat -n server.xml
+
+
+
+Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
+
+ ------------------------------------------
+
+ Active Internet connections (w/o servers)
+
+ Proto Recv-Q Send-Q Local Address Foreign Address State
+
+ tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
+
+ tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
+
+ tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
+
+ tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
+
+ tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+
+
+
+ Active UNIX domain sockets (w/o servers)
+
+ Proto RefCnt Flags Type State I-Node Path
+
+ unix 1 [ ] STREAM CONNECTED 16178 @000000dd
+
+ unix 1 [ ] STREAM CONNECTED 16176 @000000dc
+
+ unix 9 [ ] DGRAM 5292 /dev/log
+
+ unix 1 [ ] STREAM CONNECTED 16182 @000000df
+
+ ---------------------------------------------------
+
+ 从整体上看，netstat的输出结果可以分为两个部分：
+
+  一个是Active Internet connections，称为有源TCP连接，其中"Recv-Q"和"Send-Q"指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。
+
+
+
+  另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+
+  Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。
+
+
+
+  常见参数
+
+  -a (all)显示所有选项，默认不显示LISTEN相关
+
+  -t (tcp)仅显示tcp相关选项
+
+  -u (udp)仅显示udp相关选项
+
+  -n 拒绝显示别名，能显示数字的全部转化成数字。
+
+  -l 仅列出有在 Listen (监听) 的服務状态
+
+
+
+
+
+  -p 显示建立相关链接的程序名
+
+  -r 显示路由信息，路由表
+
+  -e 显示扩展信息，例如uid等
+
+  -s 按各个协议进行统计
+
+  -c 每隔一个固定时间，执行该netstat命令。
+
+  提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到
+
+
+
+ 查看端口占用
+
+  netstat -tlnp
+
+
+
+ 查看连接某服务端口最多的的IP地址
+
+  netstat -nat | grep "192.168.1.15:22" |awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -nr|head -20
+
+
+
+sort排序 用字符的ASCII码排序
+
+ sort -n  表示用数字的值排序,而非按字符ASCII排序
+
+ sort -r  反序显示
+
+
+
+linux删除目录现在使用rm -rf命令即可。
+
+ 直接rm就可以了，不过要加两个参数-rf 即：rm -rf 目录名字
+
+ -r 就是向下递归，不管有多少级目录，一并删除
+
+ -f 就是直接强行删除，不作任何提示的意思
+
+
+
+查看文件大小 ls -lh
+
+
+
+ 从根目录开始查找所有扩展名为.log的文本文件，并找出包含”ERROR”的行
+
+ find / -type f -name "*.log" | xargs grep "ERROR"
+
+ 例子：从当前目录开始查找所有扩展名为.in的文本文件，并找出包含”thermcontact”的行
+
+ find . -name "*.in" | xargs grep "thermcontact"
+
+
+
+uniq [选项] 文件
+
+ 说明：这个命令读取输入文件，并比较相邻的行。在正常情况下，第二个及以后更多个重复行将被删去，行比较是根据所用字符集的排序序列进行的。该命令加工后的结果写到输出文件中。输入文件和输出文件必须不同。如果输入文件用“- ”表示，则从标准输入读取。
+
+
+
+
+
+ 该命令各选项含义如下：、
+
+ – c 显示输出中，在每行行首加上本行在文件中出现的次数。它可取代- u和- d选项。
+
+ – d 只显示重复行。
+
+ – u 只显示文件中不重复的各行。
+
+ – n 前n个字段与每个字段前的空白一起被忽略。一个字段是一个非空格、非制表符的字符串，彼此由制表符和空格隔开(字段从0开始编号)。
+
+ +n 前n个字符被忽略，之前的字符被跳过(字符从0开始编号)。
+
+ – f n 与- n相同，这里n是字段数。
+
+ – s n 与+n相同，这里n是字符数。
+
+
+ 接下来通过实践实例说明：
+
+ ===========================================
+
+ [root@stu100 ~]# cat test
+
+ boy took bat home
+
+ boy took bat home
+
+ girl took bat home
+
+ boy took bat home
+
+ boy took bat home
+
+ dog brought hat home
+
+ dog brought hat home
+
+ dog brought hat home
+
+ 看test文件的内容
+
+ ============================================
+
+ [root@stu100 ~]# uniq test
+
+ boy took bat home
+
+ girl took bat home
+
+ boy took bat home
+
+ dog brought hat home
+
+ uniq命令不加任何参数，仅显示连续重复的行一次
+
+ ============================================
+
+ [root@stu100 ~]# uniq -c test
+
+ 2 boy took bat home
+
+ 1 girl took bat home
+
+ 2 boy took bat home
+
+ 3 dog brought hat home
+
+ 1
+
+ -c 参数显示文件中每行连续出现的次数。
+
+ ============================================
+
+ [root@stu100 ~]# cat test |sort | uniq -c
+
+ 1
+
+ 4 boy took bat home
+
+ 3 dog brought hat home
+
+ 1 girl took bat home
+
+ 排序后再显示
+
+ ============================================
+
+ [root@stu100 ~]# uniq -d test
+
+ boy took bat home
+
+ boy took bat home
+
+ dog brought hat home
+
+ -d选项仅显示文件中连续重复出现的行。
+
+ ============================================
+
+ [root@stu100 ~]# uniq -u test
+
+ girl took bat home
+
+ -u选项显示文件中没有连续出现的行。
+
+ ============================================
+
+ [root@stu100 ~]# uniq -f 2 -s 2 test
+
+ boy took bat home
+
+ 忽略每行的前2个字段，忽略第二 个空白字符和第三个字段的首字符，结果at home
+
+ ============================================
+
+ [root@stu100 ~]# uniq -f 1 test
+
+ boy took bat home
+
+ dog brought hat home
+
+ 忽 略每行的第一个字段，这样boy ，girl开头的行看起来是连续重复的行。
+
+ ============================================
+
+ [root@stu100 ~]# uniq -D test
+
+ boy took bat home
+
+ boy took bat home
+
+ boy took bat home
+
+ boy took bat home
+
+ dog brought hat home
+
+ dog brought hat home
+
+ dog brought hat home
+
+
+Linux统计文件行数
+
+语法：wc [选项] 文件…
+
+说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。
+
+该命令各选项含义如下：
+
+- c 统计字节数。
+
+- l 统计行数。
+
+- w 统计字数。
+
+这些选项可以组合使用。
+
+输出列的顺序和数目不受选项的顺序和数目的影响。
+
+总是按下述顺序显示并且每项最多一列。
+
+行数、字数、字节数、文件名
+
+如果命令行中没有文件名，则输出中不出现文件名。
+
+例如：
+
+$ wc - lcw file1 file2
+4 33 file1
+7 52 file2
+11 11 85 total
+
+举例分析：
+
+1.统计demo目录下，js文件数量：
+
+find demo/ -name "*.js" |wc -l
+2.统计demo目录下所有js文件代码行数：
+
+find demo/ -name "*.js" |xargs cat|wc -l 或 wc -l `find ./ -name "*.js"`|tail -n1
+3.统计demo目录下所有js文件代码行数，过滤了空行：
+
+find /demo -name "*.js" |xargs cat|grep -v ^$|wc -l
+
+
+
+
+------------------linux常见命令-------------------
+terminal 终端
+
+
+Linux 常见命令
+
+
+arguments 参数 缩写 args 以前在java 的main 方法中出现过
+
+1）ls:查询文件，list
+2）touch xy.txt x.txt:创建文本文件
+3) rm:remove 删除文件   rm -f 文件名： 强制删除
+4）clear 清屏
+5）date +%Y%m%d	显示日期
+6）
+date +%H（小时）:%M（秒）显示时间
+7）
+date -s “mm/dd/yyyy hh:mm:ss”修改日期时间
+8）cal [month] [year]	显示日历
+9）bc	计算器  
++ - * / % ^ 	运算功能 
+scale=n	小数位数
+   
+quit	退出
+10）
+clear 清屏
+11）gedit 文件名称： 如果存在该文件则打开，可在里面写入内容，如果不存在创建该文件再写入内容
+11）uname –r 显示内核版本 
+12）sync	关机前数据同步命令
+13）
+ln –s 源文件： 快捷方式
+14）
+halt 停机
+15）
+poweroff	关闭电源
+16）
+shutdown –h now	关机
+17）
+reboot	重启
+18）
+logout	注销
+19）exit	退出
+
+20) pwd:当前工作目录 print working directory
+21) mkdir:新建空目录命令
+22) rmdir:删除空目录命令 。 一个 rmdir 可同时删除多个空目录，用空格分隔
+    例：rmdir a/b/c   删除了c文件夹
+        rmdir -p a/b/c 强制删除 a文件夹，包括子文件夹b和b文件夹下的c。
+23）cp 文件名 directory 指定目录 :复制文件命令
+
+24）rm 删除文件 
+    rm -r 可删除非空目录(recursion 递归)
+25）
+rm -rf 强制删除(force)
+
+文件操作
+1）ls:查询文件，list
+2）touch xy.txt x.txt:创建文本文件
+3) rm:remove 删除文件   rm -f 文件名： 强制删除
+
+目录操作
+directory 目录=文件夹
+
+1）mkdir  a b c   创建多个同级目录
+2）mkdir -p a/b/c   嵌套创建
+3） rmdir:删除空目录命令 。 一个 rmdir 可同时删除多个空目录，用空格分隔
+    例：rmdir a/b/c   删除了c文件夹
+        rmdir -p a/b/c 强制删除 a文件夹，包括子文件夹b和b文件夹下的c。
+4）rm 删除文件 
+   rm -r 可删除非空目录(recursion 递归)
+   
+rm -rf 强制删除(force)
+5）cd   change directory 切换目录
+  （1）、cd 目录名 :
+  （2）、cd ..:父目录
+  （3）、cd .:当前目录
+  （4）、cd src/java/lang 进入多层目录
+  （5）、cd 回车：回家(如果是root用户，则是/root/ 路径 ，如果是普通用户，则是/home/dog/)
+  （6）、cd /home/src/java 绝对路径
+  （7）、cd ../../java 相对路径
+  （8）、cd ~/src/java 绝对路径
+  #/$(提示格式)
+  家目录 home directory
+         root    /root/
+         普通用户  /home/dog/
+6) mv 文件名 文件目录/重命名  可以将移动的文件重命名 在同一目录下做重命名看
+7) mv 
+
+init 3 管理员命令
+
+
+
+
+Linux 目录结构
+
+/ 根目录
+/root 管理员宿主
+/sbin 管理命令
+/home 普通用户宿主放在home里
+/bin  普通命令
+/usr  应用程序安装目录
+/boot 启动
+/etc  所有配置文件
+/var  存放可变内容（邮件、日志） variable 变量
+/dev  设备  device
+
+
+
+
+文件读写
+
+
+一、file  查看文件格式（类型）
+   
+touch aaa 
+file aaa //查看文件格式
+gedit aaa//编写内容
+file aaa//再次查看
+
+whereis pwd
+file /bin/pwd
+
+二、查看文本文件内容
+cat  1 不加参数，一次加载完，适合小文件
+more  只能向下 逐次加载，不加参
+less  向下向上 加参数
+head  head -5 Object  加参
+tail   同理 加参
+
+
+独立操作系统
+优点：资源充足
+缺点：不能利用其它操作系统
+
+不独立，安虚拟机
+缺点：资源不太充足
+
+Linux  ：内核 Kernel：
+
+Linux不同发行版：Red Flag 、Ubuntu、SUSE、Red Hat、Debian、CentOS
+
+uname -r :查看版本
+
+
+三、vi
+1）文本编辑器的作用：
+   （1）
+修改系统配置文件 
+   
+（2）创建用户信息文件   
+   （3）编辑程序源代码文件
+
+2）使用情况：（1）已有文件且有内容
+             （2）已有文件
+             （3）无文件
+3) 进入vi模式（代码模式）：vi aaa
+4）进入编辑模式：i(insert插入) 、a(append追加)、o(光标之后下一行)/O(光标之后上一行)、  
+r/R  替换
+5) 进入命令模式：ESC
+    ：wq     wq!强写退出
+    ：w      w!(只读强写)
+    : q      q!强退
+6）编辑模式下：
+   x/X   删除 前/后 一个字符
+   dd    删除光标所在行
+   dw  	删除光标至词首
+   
+de  	删除光标至词尾
+   
+d$	删除光标至行尾
+   
+d^	删除光标至行首	
+   yy    复制光标所在行     行号，行数 yy复制多行  (yy  p  复制粘贴)
+   y^	 复制光标至行首
+   y$	 复制光标至行尾
+   
+   yw    复制光标所在单词
+   yG    复制光标至文尾
+   y1G   复制光标至文首
+   p/P   粘贴在光标之前/后行号，行数s/查找字符/要替换字符/g(全部)c（确认）
+   u      撤销
+   r  输入新字符  替换
+   # 3dd 删除光标所在以下3行
+8) 辅助功能
+   查找  ：/a
+         由”/”或者”?”开始后跟一个word 
+      
+   按n键或者N键查找后一个
+   替换：s/ab/AB/gc 
+         先定位到最后一行 G  然后 :1,s/oldword/newword/gc   :替换全部
+
+9) ls 命令（6点）
+   ls =ls .=ls ./ :列举本目录下的文件和目录
+   ls /root   :绝对路径
+   ls -l :列举本目录下所有文件和目录的信息
+   ls -li:文件所对应的编号，并列举信息
+   ls -ld:写出本目录信息
+   ls -la:列出全部目录及文件信息（包括隐藏的）
+10）行内快速跳转
+   :
+^ 行首
+   :
+$ 行尾
+   :
+w  后一个单词首字母
+   :
+b  前一个单词首字母
+   :
+e  后一个单词尾字母   
+   加#  
+11) 行间快速跳转：
+     set nu   ：显示行号    
+     set nonu ：取消行号
+     set hlsearch
+ ：设置反白
+     set nohlsearch： 取消反白
+    1G 文件首行
+ 
+    #G  转到#行
+    
+G文件末行
+    k j h l   ：上下左右
+    文本切换 first  next  prev  last e:文件名
+12) 翻页操作：
+    
+ctrl+f   (前一页)
+    
+ctrl+b   (后一页)   
+    ctrl+u   (前半页)
+    
+ctrl+d   (后半页)
+13）多文件操作
+    创建/打开多个文件：vi file1 file2 ......
+    
+查看当前文件：:args    
+    文件切换：
+first、 
+last 、 
+next、 
+prev（上一个）
+14)软连接 （就是快捷方式）：ln -s(symbolic符号) 源头  目的地
+   硬链接 （就是起别名）：ln 源文件名 新文件名
+15）vi etc/profile  查看历史存放多少记录，默认1000条
+
+用户
+1）创建普通用户
+2）管理员账号信息
+
+查看命令历史 history
+修改默认设置多少保存命令  vi /etc/profile
+
+shell 功能
+1）接受命令 2） 
+
+# echo $SHELL 该系统用的是哪个 shell
+# cat /etc/shells 查看全部 shells
+# cat /etc/passwd 查看用户信息    登录名：密码位：用户ID：组ID：备注：宿主目录（home）:shell目录
+# cat /etc/shadow
+# cat /etc/login.defs 
+删除用户：userdel 用户名
+
+修改密码：passwd 
+
+# cat /etc/passwd |gerp root  搜索root用户  管道符：前面输出作为后面的输入
+# cat /etc/passwd |gerp root  |wc (writer count)-l 搜索root用户有几个
+
+
+# alias 命令别名
+# alias lp='startx' 自定义命令别名 图形界面 再查看 alias 看看是否操作成功  如果删除，用unalias 
+
+usermod -l 修改用户
+uesrmod -L 锁定用户
+usermod -U 解锁用户
+
+-------------------Linux常见命令11.txt---------------
+
+terminal 终端
+
+
+Linux 常见命令
+
+
+arguments 参数 缩写 args 以前在java 的main 方法中出现过
+
+1）ls:查询文件，list
+2）touch xy.txt x.txt:创建文本文件
+3) rm:remove 删除文件   rm -f 文件名： 强制删除
+4）clear 清屏
+5）date +%Y%m%d	显示日期
+6）
+date +%H（小时）:%M（秒）显示时间
+7）
+date -s “mm/dd/yyyy hh:mm:ss”修改日期时间
+8）cal [month] [year]	显示日历
+9）bc	计算器  
++ - * / % ^ 	运算功能 
+scale=n	小数位数
+   
+quit	退出
+10）
+clear 清屏
+11）gedit 文件名称： 如果存在该文件则打开，可在里面写入内容，如果不存在创建该文件再写入内容
+11）uname –r 显示内核版本 
+12）sync	关机前数据同步命令
+13）
+ln –s 源文件： 快捷方式
+14）
+halt 停机
+15）
+poweroff	关闭电源
+16）
+shutdown –h now	关机
+17）
+reboot	重启
+18）
+logout	注销
+19）exit	退出
+
+20) pwd:当前工作目录 print working directory
+21) mkdir:新建空目录命令
+22) rmdir:删除空目录命令 。 一个 rmdir 可同时删除多个空目录，用空格分隔
+    例：rmdir a/b/c   删除了c文件夹
+        rmdir -p a/b/c 强制删除 a文件夹，包括子文件夹b和b文件夹下的c。
+23）cp 文件名 directory 指定目录 :复制文件命令
+
+24）rm 删除文件 
+    rm -r 可删除非空目录(recursion 递归)
+25）
+rm -rf 强制删除(force)
+
+文件操作
+1）ls:查询文件，list
+2）touch xy.txt x.txt:创建文本文件
+3) rm:remove 删除文件   rm -f 文件名： 强制删除
+
+目录操作
+directory 目录=文件夹
+
+1）mkdir  a b c   创建多个同级目录
+2）mkdir -p a/b/c   嵌套创建
+3） rmdir:删除空目录命令 。 一个 rmdir 可同时删除多个空目录，用空格分隔
+    例：rmdir a/b/c   删除了c文件夹
+        rmdir -p a/b/c 强制删除 a文件夹，包括子文件夹b和b文件夹下的c。
+4）rm 删除文件 
+   rm -r 可删除非空目录(recursion 递归)
+   
+rm -rf 强制删除(force)
+5）cd   change directory 切换目录
+  （1）、cd 目录名 :
+  （2）、cd ..:父目录
+  （3）、cd .:当前目录
+  （4）、cd src/java/lang 进入多层目录
+  （5）、cd 回车：回家(如果是root用户，则是/root/ 路径 ，如果是普通用户，则是/home/dog/)
+  （6）、cd /home/src/java 绝对路径
+  （7）、cd ../../java 相对路径
+  （8）、cd ~/src/java 绝对路径
+  #/$(提示格式)
+  家目录 home directory
+         root    /root/
+         普通用户  /home/dog/
+6) mv 文件名 文件目录/重命名  可以将移动的文件重命名 在同一目录下做重命名看
+7) mv 
+
+init 3 管理员命令
+
+
+
+
+Linux 目录结构
+
+/ 根目录
+/root 管理员宿主目录
+/sbin 管理命令
+/home 普通用户宿主放在home里
+/bin  普通命令
+/usr  应用程序安装目录
+/boot 启动
+/etc  所有配置文件
+/var  存放可变内容（邮件、日志） variable 变量
+/dev  设备  device
+
+
+
+
+文件读写
+
+
+一、file  查看文件格式（类型）
+   
+touch aaa 
+file aaa //查看文件格式
+gedit aaa//编写内容
+file aaa//再次查看
+
+whereis pwd
+file /bin/pwd
+
+二、查看文本文件内容
+cat  1 不加参数，一次加载完，适合小文件
+more  只能向下 逐次加载，不加参
+less  向下向上 加参数
+head  head -5 Object  加参
+tail   同理 加参
+
+
+独立操作系统
+优点：资源充足
+缺点：不能利用其它操作系统
+
+不独立，安虚拟机
+缺点：资源不太充足
+
+Linux  ：内核 Kernel：
+
+Linux不同发行版：Red Flag 、Ubuntu、SUSE、Red Hat、Debian、CentOS
+
+uname -r :查看版本
+
+
+三、vi
+1）文本编辑器的作用：
+   （1）
+修改系统配置文件 
+   
+（2）创建用户信息文件   
+   （3）编辑程序源代码文件
+
+2）使用情况：（1）已有文件且有内容
+             （2）已有文件
+             （3）无文件
+3) 进入vi模式（代码模式）：vi aaa
+4）进入编辑模式：i(insert插入) 、a(append追加)、o(光标之后下一行)/O(光标之后上一行)、  
+r/R  替换
+5) 进入命令模式：ESC
+    ：wq     wq!强写退出
+    ：w      w!(只读强写)
+    : q      q!强退
+6）编辑模式下：
+   x/X   删除 前/后 一个字符
+   dd    删除光标所在行
+   dw  	删除光标至词首
+   
+de  	删除光标至词尾
+   
+d$	删除光标至行尾
+   
+d^	删除光标至行首	
+   yy    复制光标所在行     行号，行数 yy复制多行  (yy  p  复制粘贴)
+   y^	 复制光标至行首
+   y$	 复制光标至行尾
+   
+   yw    复制光标所在单词
+   yG    复制光标至文尾
+   y1G   复制光标至文首
+   p/P   粘贴在光标之前/后行号，行数s/查找字符/要替换字符/g(全部)c（确认）
+   u      撤销
+   r  输入新字符  替换
+   # 3dd 删除光标所在以下3行
+8) 辅助功能
+   查找  ：/a
+         由”/”或者”?”开始后跟一个word 
+      
+   按n键或者N键查找后一个
+   替换：s/ab/AB/gc 
+         先定位到最后一行 G  然后 :1,s/oldword/newword/gc   :替换全部
+
+9) ls 命令（6点）
+   ls =ls .=ls ./ :列举本目录下的文件和目录
+   ls /root   :绝对路径
+   ls -l :列举本目录下所有文件和目录的信息
+   ls -li:文件所对应的编号，并列举信息
+   ls -ld:写出本目录信息
+   ls -la:列出全部目录及文件信息（包括隐藏的）
+10）行内快速跳转
+   :
+^ 行首
+   :
+$ 行尾
+   :
+w  后一个单词首字母
+   :
+b  前一个单词首字母
+   :
+e  后一个单词尾字母   
+   加#  
+11) 行间快速跳转：
+     set nu   ：显示行号    
+     set nonu ：取消行号
+     set hlsearch
+ ：设置反白
+     set nohlsearch： 取消反白
+    1G 文件首行
+ 
+    #G  转到#行
+    
+G文件末行
+    k j h l   ：上下左右
+    文本切换 first  next  prev  last e:文件名
+12) 翻页操作：
+    
+ctrl+f   (前一页)
+    
+ctrl+b   (后一页)   
+    ctrl+u   (前半页)
+    
+ctrl+d   (后半页)
+13）多文件操作
+    创建/打开多个文件：vi file1 file2 ......
+    
+查看当前文件：:args    
+    文件切换：
+first、 
+last 、 
+next、 
+prev（上一个）
+14)软连接 （就是快捷方式）：ln -s(symbolic符号) 源头  目的地
+   硬链接 （就是起别名）：ln 源文件名 新文件名
+15）查看命令历史 history
+    vi /etc/profile  查看历史存放多少记录，默认1000条
+
+
+
+
+
+
+shell 功能
+
+用户
+1）创建普通用户
+2）管理员账号信息
+
+
+# echo $SHELL 该系统用的是哪个 shell
+# cat /etc/shells 查看全部 shells
+# cat /etc/passwd 查看用户信息    登录名：密码位：用户ID：组ID：（备注）：宿主目录（home）:shell目录
+# cat /etc/shadow 用户密码存在位置文件（9栏）登陆名：密码（ＭＤ５加密：不可逆）：数字：
+# cat /etc/login.defs 
+创建新用户：useradd -u 123 -c "this a dag" -d /home -s /bin/bash 用户名
+修改用户：usermod -s /bin/ash 用户名
+删除用户：userdel 用户名
+          usermod -l 更改登录名
+          usermod -L 锁定
+          usermod -Ｕ //unlock 解锁
+#useradd group
+切换用户：su 用户名
+
+修改密码：passwd 
+
+# cat /etc/passwd |gerp root  搜索root用户  管道符：前面输出作为后面的输入
+# cat /etc/passwd |gerp root  |wc (writer count)-l 搜索root用户有几个
+
+
+# alias 命令别名
+# alias lp='startx' 自定义命令别名 图形界面 再查看 alias 看看是否操作成功  如果删除，用unalias 
+
+
+一块硬盘有四个主分区
+  拿主分区改为 扩展分区，里建多个逻辑分区，逻辑分区上可建多个分区
+
+文件系统 file System
+  window 下两种文件系统： FAT32  NTFS（新策略预测系统（New Tactical Forecast System））
+  DOS下 FAT
+  Linux  EXT2、EXT3
+
+  u(user)               r    
+  g(grup)        +      w
+  o(others)      -      x
+  a(all)         =      -
+
+通过命令修改：
+ chown 所有者权限
+     chown 所属用户：所属组 file  例子：chown xx:xy a.txt
+                                  原来：-rw-r--r--  1 root root 时间 a.txt
+                                  结果：-rw-r--r--  1 xx   xy   时间 a.txt
+ chgrp 所在组权限
+ 
+-g  1)useradd 默认创建同名的组
+    2)usermod -g 可切换基本组
+    3）useradd -g 可直接指定基本组
+    4）useradd 或usermod  -g  指定组名    可在/etc/passwd 第四栏中显示male组的id
+    5)以 -g接着的组名，在该用户创建的文件，显示文件信息的第四列中显示
+  
+useradd -g 加的是组长，组id 和加到的组组id相同
+usermod -g 修改为组长
+useradd -G 加的是成员，组id仍是自己的基本组id
+usermod -G 修改添加成员
+
+path 可执行文件搜索路径
+
+
+编写
+#/bin/bash   注释
+x=5
+y=6
+let m=x+y
+echo $m
+
+
+sh a.txt
+
+
+#PATH=$PATH:/bin/shell
+#cd /
+/ sh a.txt
+
+etc 
+全局环境变量的配置文件：/etc/profile (与登陆有关)              /etc/bashrc （与）
+用户环境变量的配置文件：.bash_profile             ~ .bashrc
+
+
+
+数值比较
+
+eq   等于  =
+
+ne   不等  !=
+gt   大于  >
+
+lt   小于  <
+ge   大于等于 >=
+
+le   小于等于 <=
+
+
+文件比较
+e    判断文件是否存在 （exist）
+f    判断文件是否为“文件”
+
+d    判断文件是否为“目录”
+
+
+
+常用命令
+	cat 把档案串连接后传到基本输出（萤幕或加 > fileName 到另一个档案）
+		cat -n 1.txt > 2.txt  把1.txt的内容加上行号加入2.txt
+		cat -n 1.txt  显示加上行号的文件内容
+	chattr 改变文件属性
+	bc 计算
+	netstat -tnl 查看使用端口
+	find . -name *filename* 搜索
+	free 显示内存状态
+	exit 退出登录   ctrl+D
+	history 历史命令
+	ln aa bb 为aa创建一个硬链接
+	ln -s aa bb 为aa创建一个软链接
+		硬连接是给文件一个副本，同时建立两者之间的连接关系。
+		修改其中一个，与其连接的文件同时被修改。
+		如果删除其中任意一个其余的文件将不受影响。 
+		软连接也叫符号连接，他只是对源文件在新的位置建立一个“快捷（借用一下wondows常用词）”，
+		所以，当源文件删除时，符号连接的文件将成为无源之水->仅仅剩下个文件名了，
+		当然删除这个连接，也不会影响到源文件，但对连接文件的使用、引用都是直接调用源文件的。
+		硬连接必须在同一文件系统中，而软连接可以跨文件系统
+		目录不能够有硬连接
+	sync 把内存数据同步到硬盘，关机、重启之前的操作
+	whereis mysql  查询和mysql有关的文件
+	
+
+用户
+	useradd  username  注：添加用户 
+	adduser    注：添加用户
+	passwd     注：为用户设置密码
+	usermod	   注：修改用户命令，可以通过usermod 来修改登录名、用户的家目录等等；
+		usermod -g group user  改变用户所属组
+		usermod -G group user  为用户增加所属组
+	pwcov       注：同步用户从/etc/passwd 到/etc/shadow 
+	pwck         注：pwck是校验用户配置文件/etc/passwd 和/etc/shadow 文件内容是否合法或完整；
+	pwunconv  注：是pwcov 的立逆向操作，是从/etc/shadow和 /etc/passwd 创建/etc/passwd ，然后会删除 /etc/shadow 文件；
+	finger        注：查看用户信息工具
+	id              注：查看用户的UID、GID及所归属的用户组
+	chfn          注：更改用户信息工具
+	su             注：用户切换工具
+	sudo         注：sudo 是通过另一个用户来执行命令（execute a command as another user），su 是用来切换用户，然后通过切换到的用户来完成相应的任务，但sudo 能后面直接执行命令，比如sudo 不需要root 密码就可以执行root 赋与的执行只有root才能执行相应的命令；但得通过visudo 来编辑/etc/sudoers来实现；
+	visudo      注：visodo 是编辑 /etc/sudoers 的命令；也可以不用这个命令，直接用vi 来编辑 /etc/sudoers 的效果是一样的；
+	sudoedit  注：和sudo 功能差不多；
+
+	groupadd  注：添加用户组；
+	groupdel         注：删除用户组；
+	groupmod        注：修改用户组信息
+	groups     注：显示用户所属的用户组
+	grpck
+	grpconv   注：通过/etc/group和/etc/gshadow 的文件内容来同步或创建/etc/gshadow ，如果/etc/gshadow 不存在则创建；
+	grpunconv   注：通过/etc/group 和/etc/gshadow 文件内容来同步或创建/etc/group ，然后删除gshadow文件；
+	newgrp 切换用户组
+	存放用户密码文件
+		/etc/passwd   /etc/shadow
+
+shell
+	/bin/bash  bash
+	/bin/csh   C shell
+	/bin/sh	   Bourne shell
+
+	第一个shell  1.sh
+		#!/bin/bash  #声明哪个命令解释器用于运行脚本
+		echo 'fffffffffffffff'
+		pwd
+	运行第一个shell
+		/bin/bash 1.sh
+		./1.sh
+		source 1.sh
+
+配置文件目录
+	/etc/inittab 修改启动项 
+		0:关机 3:full multiuser mode 5:x11 6:reboot
+	/etc/sysconfig/network-scripts/ifcfg-eth0	ip配置 
+	service network restart 重新启动网络服务
+		DEVICE=eth0
+		BOOTPROTO=none
+		HWADDR=00:0C:29:8D:78:11
+		ONBOOT=yes
+		DHCP_HOSTNAME=shao.linux
+		IPADDR=192.168.0.113
+		NETMASK=255.255.255.0
+		GATEWAY=192.168.0.100
+		TYPE=Ethernet
+		USERCTL=no
+		IPV6INIT=no
+		PEERDNS=yes
+	/etc/resolv.conf dns配置
+		nameserver 192.168.0.100	
+	/etc/profile 设置PATH 
+		PATH="$PATH:/home/jdk1.5/bin"
+		export PATH
+	
+
+make 安装卸载
+	安装
+		./configure --prefix=/usr/local/mysql
+		make
+		make install
+	卸载
+		make uninstall
+
+bin安装卸载
+	安装
+		给文件加上可执行属性：chmod +x ******.bin（中间是字母x，小写）
+		执行命令：./******.bin(realplayer for linux就是这样的安装包)
+	卸载
+		如何卸载：把安装时中选择的安装目录删除就OK
+
+磁盘管理
+	系统自动挂载分区配置 /etc/fstab
+		/dev/hda5 /mnt/hda5 ext3 defaults 1 1
+	显示磁盘信息 fdisk -l
+
+	磁盘分区 fdisk /dev/hda
+	格式化磁盘 mke2fs -j -L "logical" /dev/hda5
+	挂载磁盘 mount /dev/hda5 /mnt/hda5
+	卸载 umount 装置代号或挂载点
+
+	显示谁在使用当前挂载点 fuser -m /media/share
+	杀死当前挂载点使用进程 kill -9 25023 # ps aux | grep 25023 應該就會看到它 
+	fuser -m -v -i -k /media/share # 會問你是不是要把 25023 這個 kill 掉, 選 y 就會 kill 掉 
+	mount –t smbfs //192.168.1.1/aaa /mnt/share 挂载共享目录
+
+setup配置
+	防火墙开放多个端口设置 
+		在other ports输入框中输入： svn 3306 
+
+启动桌面
+	init 5
+	startx
+
+显示帮助
+	date --help|more|less
+	man date
+
+时间
+	date +%F 按格式输出时间 2010-10-10，等同于 date +%Y-%m-%d
+	date +%T 12:10:10 等同于date +%H:%M:%S
+	cal
+	date -s 12/30/2009|22:29 设置时间
+
+语言设置
+	LANG=en
+	LANGUAGE=en
+
+文件/目录操作
+	file 辨识文件类型
+	文件权限 r 4 w 2 x 1   
+		例:d(1)rwx(2)rwx(3)rwx(4)
+		1:此文件属性
+			d:目录，-：文件，l:连接文件，b:设备文件，c:串行端口
+		2:文件拥有者的属性
+		3:文件所属用户组的属性
+		4:其他人对此文件的属性
+		
+	pwd 显示当前目录路径
+	ls 显示当前目录内所有内容
+	rmdir 删除空目录
+	rm -rf dirname 删除非空目录
+	rm -f filename 删除文件
+	mkdir 创建目录
+	mv 1 2 移动文件
+	cp 1 2 复制文件
+	rename 复命名文件
+	chmod 777 file 改变文件权限
+	chgrp users install.log 改变install.log的组为users
+	chown root:root install.log 更改文件拥有者
+	ln -sf 源文件 目标文件 s:不加s是硬连接，加s就是符号连接，f：有f则目标文件存在，删除后重建
+
+	cat 由第一行开始显示文件内容
+	tac 从最后一行开始显示
+	nl 显示的时候，输出行号
+	more 一页一页显示文件内容
+	less 与more类似，但它可以向前翻页
+	head 只看前几行
+	tail 只看后几行
+	od 以二进制方式读取文件内容
+	touch 改变文件或目录时间
+
+防火墙
+	修改文件配置防火墙
+		/etc/sysconfig/iptables
+
+	iptables -F 终断
+	iptables -X 清除	
+
+	service iptables stop --停止 
+
+	service iptables start --启动 
+	service iptables restart --重新启动
+
+vi/vim
+	:w 将编辑的数据写入硬盘档案中（常用） 
+	:w! 若档案属性为『只读』时，强制写入该档案 
+	:q 离开 vi （常用） 
+	:q! 若曾修改过档案，又不想储存，使用 ! 为强制离开不储存档案。 
+	:wq 储存后离开，若为 :wq! 则为强制储存后离开（常用） 
+	:e! 将档案还原到最原始的状态！ 
+	ZZ 若档案没有更动，则不储存离开，若档案已经经过更动，则储存后离开！ 
+	:w [filename] 将编辑的数据储存成另一个档案（类似另存新档） 
+	:r [filename] 在编辑的数据中，读入另一个档案的数据。亦即将 『filename』这个档案内容加到游标所在行后面 
+	/aa 从光标位置向下查找aa，n查找下一个
+	?aa 从光标位置向上查找aa
+	yy 复制光标所在行。[超常用]
+	p 复制单行到您想粘贴之处。（指令‘yy’与‘p’必须搭配使用）	
+	dd 删除当前行	
+	按Ctrl+B 屏幕往后移动一页。[常用]
+	按Ctrl+F 屏幕往前移动一页。[常用]
+
+	按 0 （数字零）：这是数字『 0 』,移动到这一行的最前面字符处（常用）
+	按 $ 移到光标所在行的行尾。[常用]
+
+	按 G：移动到文章的最后。[常用]
+	H 光标移动到这个屏幕的最上方那一行 
+	M 光标移动到这个屏幕的中央那一行 
+	L 光标移动到这个屏幕的最下方那一行 
+	按 w  光标跳到下个word的开头。[常用]
+		
+	u 假如您误操作一个指令，可以马上按u，回复到上一个操作。[超常用]
+	ctrl+r 重做上次操作，和u相反操作	
+	r 取代光标所在处的字符：[常用]	
+	
+	显示行号：进入vi后，按esc,然后输入":",然后输入"set nu"或"set number"回车
+	取消显示行号：set nonu
+	:! command 暂时离开 vi 到指令列模式下执行 command 的显示结果！例如[ :! ls /home ] 	
+
+	6yy 如：6yy表示拷贝从光标所在的该行往下数6行之文字。[常用]
+	6G  移动光标到第6行
+	:6 移动光标到第6行
+	6[Enter] 移动光标到当前行下第6行
+	6空格 移动到当前行从当前字符后的第6个字符
+	6删除键 移动到当前行从当前字符前的第6字字符
+
+	e1.txt 多个文件操作时，切换不同的编辑文件，保存当前文件之后再使用
+	
+	
+
+vimdiff
+	vimdiff 多个窗口对比编辑多个文件
+
+	启动vimdiff
+		方法一：# vimdiff  FILE_LEFT  FILE_RIGHT
+		方法二：# vim -d  FILE_LEFT  FILE_RIGHT
+		方法三：# vim FILE_LEFT 之后打开vim后输入:vertical diffsplit FILE_RIGHT
+	窗口布局切换
+		Ctrl-w K（把当前窗口移到最上边）
+		Ctrl-w H（把当前窗口移到最左边）
+		Ctrl-w J（把当前窗口移到最下边）
+		Ctrl-w L（把当前窗口移到最右边）
+	窗口焦点切换，即切换当前窗口
+		CTRL-w h 跳转到左边的窗口
+		CTRL-w j 跳转到下面的窗口
+		CTRL-w k 跳转到上面的窗口
+		CTRL-w l 跳转到右边的窗口
+		CTRL-w t 跳转到最顶上的窗口
+		CTRL-w b 跳转到最底下的窗口
+		CTRL-w w 跳转到另一个窗口
+		CTRL-w CTRL-w 跳转到另一个窗口，同CTRL-w w
+	光标移动
+		移动光标，切分窗口会同步移动，使用:set noscrollbind命令可取消同步		
+	文件合并
+		dp 将当前窗口光标位置处的内容复制到另一窗口
+		do 将另一窗口光标位置处的内容复制到当前窗口
+		diffupdate 重新比较两个文件，如果手动修改文件的话有时不会自动同步
+	文件操作
+		yy 复制当前行
+		nyy 复制当前行开始的n行
+		dd 删除当前行
+		ndd 删除当前行开始的n行
+		p 粘贴
+		u 撤销
+		CTRL-r 重复(即取消撤销)
+		wa 全部保存
+		wqa 全部保存后退出
+		qa 全部退出
+		qa! 全部强制退出，不保存文件修改
+
+系统目录
+	/bin/ — 用来贮存用户命令。目录 /usr/bin 也被用来贮存用户命令。
+	/sbin/ — 许多系统命令（例如 shutdown）的贮存位置。目录 /usr/sbin 中也包括了许多系统命令。 
+	/root/ — 根用户（超级用户）的主目录。 
+	/mnt/ — 该目录中通常包括系统引导后被挂载的文件系统的挂载点。譬如，默认的光盘挂载点是 /mnt/cdrom/ . 
+	/boot/ — 包括内核和其它系统启动期间使用的文件。 
+	/lost+found/ — 被 fsck 用来放置零散文件（没有名称的文件）。
+	/lib/ — 包含许多被 /bin/ 和 /sbin/ 中的程序使用的库文件。目录 /usr/lib/ 中含有更多用于用户程序的库文件。 
+	/dev/ — 贮存设备文件。 
+	/etc/ — 包含许多配置文件和目录。 
+	/var/ — 用于贮存 variable （或不断改变的）文件，例如日志文件和打印机假脱机文件。 
+	/usr/ — 包括与系统用户直接有关的文件和目录，例如应用程序及支持它们的库文件。 
+	/proc/ — 一个虚拟的文件系统（不是实际贮存在磁盘上的），它包括被某些程序使用的系统信息。 
+	/initrd/ — 用来在计算机启动时挂载 initrd.img 映像文件的目录以及载入所需设备模块的目录。 
+	警告:不要 删除 /initrd/ 目录。如果你删除了该目录后再重新引导 Red Hat Linux 时，你将无法引导你的计算机。 
+	/tmp/ — 用户和程序的临时目录。 /tmp 给予所有系统用户读写权。
+	/home/ — 用户主目录的默认位置。
+	/opt/ — 可选文件和程序的贮存目录。该目录主要被第三方开发者用来简易地安装和卸装他们的软件包。
+
+gcc安装
+	centos_5.2
+	yum install gcc-c++
+	--------------------
+	rpm -ivh cpp-4.1.2-42.el5.i386.rpm
+	rpm -ihv kernel-headers-2.6.18-92.el5.i386.rpm
+	rpm -ivh glibc-headers-2.5-24.i386.rpm 
+	rpm -ivh glibc-devel-2.5-24.i386.rpm 
+	rpm -ivh libgomp-4.1.2-42.el5.i386.rpm 
+	rpm -ivh gcc-4.1.2-42.el5.i386.rpm
+
+mysql
+	shell> groupadd mysql 
+	shell> useradd mysql -g mysql  创建mysql用户	
+
+	shell> cd /usr/local/soft 压缩文件所在的目录	
+	shell> tar -zxvf mysql-5.0.51a.tar.gz
+	shell> cd mysql-5.0.51a
+	shell> ./configure --prefix=/usr/local/mysql --with-charset=gb2312 --with-extra-charsets=gbk,gb2312
+	shell> make && make install
+
+	shell> cp support-files/my-medium.cnf /etc/my.cnf
+	shell>vi /etc/my.cnf
+	将其中的skip_federated注销掉。也就是在前面加上“#”号	
+	shell> cd /usr/local/mysql
+	修改此目录的所有文件权限，			
+	shell> chown -R mysql.mysql .
+	为mysql用户生成数据库
+	shell> bin/mysql_install_db --user=mysql --datadir=/usr/local/mysql/var/
+		
+	为安全起见 将原目录权限改回root
+	shell> chown -R root .
+	将新生成的存放数据库的目录改回mysql所有以便能够正常启动。
+	shell> chown -R mysql var
+	启动mysql
+		cp support-files/mysql.server /etc/rc.d/init.d/mysqld
+		chmod +x /etc/rc.d/init.d/mysqld
+		/etc/rc.d/init.d/mysqld start 
+	通过服务增加开机自启动
+		chkconfig --add mysqld
+		service mysqld start
+		chkconfig mysqld on
+
+	修改mysql密码
+	Method 1:
+	在/usr/local/mysql/bin/下：
+	./mysqladmin -u root password ‘new_password’
+	一般安装时用此方法设置。
+
+	Method 2:
+	在mysql状态下：
+	mysql>UPDATE user SET password=PASSWORD(’new_password’) WHERE user=’root’;
+	mysql>FLUSH PRIVILEGES; 
+
+
+	远程客户端root不能连接
+		UPDATE mysql.user SET Host='%' WHERE Host='localhost';
+		GRANT ALL PRIVILEGES ON *.* TO root@"%" ;
+		FLUSH PRIVILEGES;
+
+	1.Linux系统下启动MySQL的命令：
+
+	mysqladmin start
+
+	/ect/init.d/mysql start (前面为mysql的安装路径)
+
+	2.linux下重启mysql的命令：
+
+	mysqladmin restart
+
+	/ect/init.d/mysql restart (前面为mysql的安装路径) 
+
+	3.linux下关闭mysql的命令：
+
+	mysqladmin shutdown
+
+	/ect/init.d/mysql shutdown (前面为mysql的安装路径)
+
+	4.连接本机上的mysql：
+
+	进入目录mysql\bin，再键入命令mysql -u root -p， 回车后提示输入密码。
+
+	退出mysql命令：exit（回车）
+
+	5.修改mysql密码：
+
+	mysqladmin -u 用户名 -p 旧密码 password 新密码
+
+	或进入mysql命令行SET PASSWORD FOR root=PASSWORD("root");
+
+	6.增加新用户。（注意：mysql环境中的命令后面都带一个分号作为命令结束符）
+
+	grant select on 数据库.* to 用户名@登录主机 identified by "密码"
+
+	如增加一个用户test密码为123，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入mysql，然后键入以下命令：
+
+	grant select,insert,update,delete on *.* to 'test'@'localhost' Identified by '123';
+
+apache
+	安装
+		shell> cd /usr/local/src
+		shell> tar -zxvf httpd-2.2.4.tar.gz
+		shell> cd httpd-2.2.4
+		shell>./configure --prefix=/usr/local/apache2  \
+			--enable-module=most \
+			--enable-rewrite \
+			--enable-shared=max \
+			--enable-so --enable-ssl 
+		shell> make && make install
+	启动 停止 重启
+		shell>apachectl start
+		shell>apachectl stop
+		shell>apachectl restart
+	其他
+		/var/www WEB站点目录
+		/etc/httpd/conf/httpd.conf          Apache WEB服务器配置文件目录
+
+php
+	安装
+		shell> cd /usr/local/src
+		shell> tar -zxvf php-5.2.2.tar.gz
+		shell> cd php-5.2.2
+		shell>./configure --prefix=/usr/local/php \
+			--with-apxs2=/usr/local/apache2/bin/apxs 
+			--with-mysql=/usr/local/mysql \
+			--with-freetype-dir=/usr/local/freetype 
+			--with-gd=/usr/local/gd \
+			--with-zlib --with-libxml-dir=/usr/local/libxml2 
+			--with-jpeg-dir=/usr/local/jpeg6 
+			--with-png-dir 
+			--enable-mbstring=all 
+			--enable-mbregex 
+			--enable-shared 
+		shell> make && make install 
+		shell> cp php.ini-dist /usr/local/php/lib/php.ini
+	
+	配置并启动Apache
+
+		在Apache主配置文件中增加：
+		AddType application/x-httpd-php .php .phtml
+		找到index.html 在前面添加index.php
+
+		启动Apache
+		/usr/local/apache2/bin/apachectl start
+
+		设置MySQL和Apache自动启动
+		shell> echo "/usr/local/apache2/bin/apachectl start" >> /etc/rc.local
+
+	建立php测试网页
+		vim /usr/local/apache2/htdocs/index.php	 
+		<?php
+		phpinfo();
+		?>
+
+
+	问题
+		httpd: Syntax error on line 53 of /opt/apache2/conf/httpd.conf: Cannot load /opt/apache2/modules/libphp5.so into server: /opt/apache2/modules/libphp5.so: undefined symbol: php_ini_opened_path
+
+		问题: apache不能加载外挂php模块. & apache加载外挂php模块后不能开机自启. 
+		解决:这是由SELinux的安全策略配置不当引起的.在Fedora Core 的官方网站上有相关的Apache/SELinux的策略调整文档.如果嫌麻烦,可以直接修改/etc/selinux/config 将SELinux禁用. 
+
+svn
+	创建仓库
+		svnadmin create f:\svn\r1
+	修改仓库配置文件
+		svnserve.conf
+			去掉以下代码前注释 
+				password-db = passwd
+				authz-db = authz
+				anon-access = none   
+		passwd
+			增加用户及密码
+				shao=123
+		authz
+			增加
+				#按用户添加权限（方式一）
+				[/]
+				shao=rw
+
+				#为所有用户增加权限（方式二）
+				[/]
+				*=rw
+	启动svn
+		svnserve -d -r f:\svn\r1
+		配置自动启动 /etc/rc.d/rc.local
+			加入 svnserve -d -r /opt/svn/r1
+
+
+	访问
+		端口：3690
+		svn://192.168.0.114/  
+
+yum 
+	/etc/yum.repos.d/CentOS-Base.repo yum配置文件
+
+crontab定时
+	/sbin/service crond start //启动服务 
+	/sbin/service crond stop //关闭服务 
+	/sbin/service crond restart //重启服务
+	/etc/rc.d/init.d/crond restart //重启服务
+	/sbin/service crond reload //重新载入配置 
+	你也可以将这个服务在系统启动的时候自动启动: 
+	在/etc/rc.d/rc.local这个脚本的末尾加上: 
+	/sbin/service crond start 
+
+	可用crontab -e命令来编辑,编辑的是/var/spool/cron下对应用户的cron文件,也可以直接修改/etc/crontab文件 
+	具体格式如下： 
+	Minute Hour Day Month Dayofweek   command 
+	分钟   小时 天  月     天每星期    命令
+
+	31 16 * * * root touch /opt/111111
+
+压缩		
+	.tar
+	解包：tar xvf FileName.tar
+		tar -zxvf 1.tar
+	打包：tar cvf FileName.tar DirName
+	（注：tar是打包，不是压缩！）
+	-------------------------------
+	.gz
+	解压1：gunzip FileName.gz
+	解压2：gzip -d FileName.gz
+	压缩：gzip FileName
+	------------------------------
+	.tar.gz 和 .tgz
+	解压：tar zxvf FileName.tar.gz
+	压缩：tar zcvf FileName.tar.gz DirName
+	------------------------------
+	.bz2
+	解压1：bzip2 -d FileName.bz2
+	解压2：bunzip2 FileName.bz2
+	压缩： bzip2 -z FileName
+	.tar.bz2
+	解压：tar jxvf FileName.tar.bz2
+	压缩：tar jcvf FileName.tar.bz2 DirName
+	--------------------------------
+	.bz
+	解压1：bzip2 -d FileName.bz
+	解压2：bunzip2 FileName.bz
+	压缩：未知
+	.tar.bz
+	解压：tar jxvf FileName.tar.bz
+	压缩：未知
+	-------------------------------
+	.Z
+	解压：uncompress FileName.Z
+	压缩：compress FileName
+	.tar.Z
+	解压：tar Zxvf FileName.tar.Z
+	压缩：tar Zcvf FileName.tar.Z DirName
+	-------------------------------
+	.zip
+	解压：unzip FileName.zip
+	压缩：zip FileName.zip DirName
+	-------------------------------
+	.rar
+	解压：rar x FileName.rar
+	压缩：rar a FileName.rar DirName
+
+	rar请到：http://www.rarsoft.com/download.htm 下载！ 
+	解压后请将rar_static拷贝到/usr/bin目录（其他由$PATH环境变量指定的目录也可以）：
+	[root@www2 tmp]# cp rar_static /usr/bin/rar
+	-------------------------------
+	.lha
+	解压：lha -e FileName.lha
+	压缩：lha -a FileName.lha FileName
+
+	lha请到：http://www.infor.kanazawa-it.ac.jp/~ishii/lhaunix/下载！ 
+	>解压后请将lha拷贝到/usr/bin目录（其他由$PATH环境变量指定的目录也可以）：
+	[root@www2 tmp]# cp lha /usr/bin/
+	-------------------------------
+	.rpm
+	解包：rpm2cpio FileName.rpm | cpio -div
+	-------------------------------
+	.deb
+	解包：ar p FileName.deb data.tar.gz | tar zxf -
+	-------------------------------
+	.tar .tgz .tar.gz .tar.Z .tar.bz .tar.bz2 .zip .cpio .rpm .deb .slp .arj .rar .ace .lha .lzh .lzx .lzs .arc .sda .sfx .lnx .zoo .cab .kar .cpt .pit .sit .sea
+	解压：sEx x FileName.*
+	压缩：sEx a FileName.* FileName
+
+	sEx只是调用相关程序，本身并无压缩、解压功能，请注意！
+	sEx请到： http://sourceforge.net/projects/sex下载！ 
+	解压后请将sEx拷贝到/usr/bin目录（其他由$PATH环境变量指定的目录也可以）：
+	[root@www2 tmp]# cp sEx /usr/bin/
+
+忘记系统密码
+	一. lilo引导
+
+	1. 在出现 lilo: 提示时键入 linux single
+
+	Boot: linux single
+
+	2. 回车可直接进入linux单用户模式
+
+	3. vi /etc/passwd
+
+	删除root项中的密码
+
+	(这里也可以直接使用passwd命令重新设置root的密码)
+
+	4. reboot重启，root密码为空
+
+	二. grub引导
+
+	1. 在出现grub画面时，选择linux引导项，然后按e键
+
+	2. 选择以kernel开头的一行，再按e 键，在此行的末尾，按空格键后输入single，以回车键来退出编辑模式；
+
+	3. 回车返回，然后按b键启动，即可直接进入linux单用户模式
+
+	4. vi /etc/passwd
+
+	删除root项中的密码
+
+	(这里也可以直接使用passwd命令重新设置root的密码)
+
+	5、reboot重启，root密码为空
+
+	三、可以使用linux启动软盘引导
+
+	出现boot后，输入linux single
+
+	可进入单用户模式；
+
+	修改或删除root密码；
+
+	四、使用Linux 系统安装盘
+
+	如果你既没做系统启动软盘，同时多系统的引导LILO 和GRUB 又被删除，那么只能使用Linux 系统安装盘来恢复root的密码。
+
+	用第一张Linux 系统安装盘启动，出现boot 提示符后输入：
+
+	oot: linux rescue
+
+	此时系统进入救援模式，然后根据提示完成：
+
+	1.选择语言和键盘格式；
+
+	2.选择是否配置网卡，一般系统因网络不需要，所以可以选择否跳过网卡配置；
+
+	3.选择是否让系统查找硬盘上的Redhat Linux 系统，选择继续；
+
+	4.系统显示硬盘上的系统已经被找到，并挂载在/mnt/sysimage 下；
+
+	5.进入拯救状态，可重新设置root 的密码：
+
+	# chroot/mnt/sysimage (让系统成为根环境)
+
+	# cd /mnt/sysimage
+
+	# passwd root
+
+	五、卸下硬盘挂到别的机器上更改
+
+	如果不怕麻烦的话，还可以把安装linux的硬盘卸下后挂到其他系统环境下同样是去修改/etc/passwd文件，修改过后保存即可；
+
+	注：
+
+	1、在不同的linux系统下输入single的方式和方法可能有区别，希望能自己去尝试；
+
+	2、除了需要修改/etc/passwd文件外，可能也需要修改/etc/shadow文件，这是/etc/passwd密码文件的投影文件。

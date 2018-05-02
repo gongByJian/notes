@@ -1,0 +1,265 @@
+cookie
+    获取：Cookie[] cs = request.getCookies();
+	取键：cookie.getName()
+    设置:
+        Cookie cookie=new Cookie(cookieName, "Test_Content");
+        cookie.setMaxAge(10);
+        response.addCookie(cookie);
+
+    cookie被禁时sessionid传值
+        <%=response.encodeURL("2.jsp") %>
+
+jquery中文乱码
+	发送请求：
+		<input type="button" value="请求" onclick="test()">
+		<script src="jquery-1.2.6.js"></script>
+		<script>
+		function test()
+		{
+			$.get(	
+				'2.jsp',
+				{name:encodeURI('中国')},
+				function (data)
+				{
+					alert(data);
+				}
+			);
+		}
+		</script>
+	接收请求页面 2.jsp：
+		<%@ page language="java" contentType="text/html; charset=gbk"%>
+		<jsp:directive.page import="java.net.URLEncoder"/>
+		<jsp:directive.page import="java.net.URLDecoder"/>
+		<%
+			String name = request.getParameter("name");
+			name=URLDecoder.decode(name,"utf-8");
+
+			//str = URLDecoder.decode(URLDecoder.decode(str, "utf-8"),"utf-8");
+		%>
+		<%=name %>
+
+		
+
+模板引擎
+	Smarty4j(简称ST)
+	XMLTemplate(简称XT)
+	FreeMarker(简称FT) 
+	Velocity(简称VT) 
+	CommonTemplate(简称CT)
+
+EL
+	页面开启el表达式
+		<%@ page language="java" pageEncoding="gbk" isELIgnored="false"%>
+	获取get传值
+		${param.id }
+	错误
+		According to TLD or attribute directive in tag file, attribute items does not accept any expressions
+		加入 isELIgnored="true"
+
+生成excel
+	<%
+		//设置文件格式和文件名
+		response.setContentType("Application/msexcel;charset=GBK");
+		response.setHeader("Content-disposition", "attachment; filename=Allocate Supply by National MAR or Region.xls");
+	%>
+
+隐式对象 九大
+	输入／输出对象
+		request
+		response
+		out
+	作用域通信对象
+		session
+		application
+		pageContext
+	Servlet 对象
+		page
+		config
+	错误对象
+		exception
+
+response设置编码
+	response.setContentType("text/xml; charset=UTF-8");
+	response.setCharacterEncoding("utf-8");
+	response.setHeader("Cache-Control", "no-cache");
+
+自定义标签 静态常量的解释
+	EVAL_BODY_INCLUDE：告诉服务器正文的内容，并把这些内容送入输出流
+	SKIP_BODY：告诉服务器不要处理正文内容
+	EVAL_PAGE：让服务器继续执行页面
+	SKIP_PAGE：让服务器不要处理剩余的页面
+	EVAL_BODY_AGAIN：让服务器继续处理正文内容，只有doAfterBody方法可以返回
+	EVAL_BODY_BUFFERED：BodyTag接口的字段，在doStartTag()返回
+	EVAL_BODY_INCLUDE、SKIP_BODY一般由doStartTag()返回，而EVAL_PAPGE、SKIP_PAGE由doEndTag()返回。
+
+session
+
+	session监听类
+		import javax.servlet.http.HttpSessionEvent;
+		import javax.servlet.http.HttpSessionListener;
+
+		public class SessionListener implements HttpSessionListener {
+
+			public void sessionCreated(HttpSessionEvent arg0) {
+				System.out.println("创建");
+			}
+
+			public void sessionDestroyed(HttpSessionEvent arg0) {
+				System.out.println("销毁");
+			}
+
+		}
+	web.xml配置
+		<listener>
+			<listener-class>com.sgd.SessionListener</listener-class>
+		</listener>
+
+session 管理配置
+	由StandardManager来管理
+		当服务器正常终止时，
+		session会在work\Catalina\localhost\session目录下产生SESSIONS.ser，
+		服务器正常启动加载完成后，该文件会消失，
+		配置如下
+		maxInactiveInterval="7200"   会使已闲置两小时的会话超时
+		<Context 
+			docBase="G:\workspace\session\WebRoot" path="/session" debug="0" reloadable="true">
+			<Manager className="org.apache.catalina.session.StandardManager" 
+				debug="0" maxActiveSessions="-1" checkInterval="60" maxInactiveInterval="7200"/>
+		</Context>	
+		参数说明：checkInterval－检查session是否过期的时间间隔，以秒为单位，缺省值是60秒；
+		maxActiveSessions－可处于活动状态的session数。
+
+
+	由PersistentManager来管理
+		<Context 
+		docBase="G:\workspace\session\WebRoot" path="/session" debug="0" reloadable="true">
+		<Manager className="org.apache.catalina.session.PersistentManager" debug="0" saveOnRestart="true" 
+			  maxActiveSessions="-1" minIdleSwap="-1" maxIdleSwap="-1" maxIdleBackup="-1" >
+		<Store className="org.apache.catalina.session.FileStore" directory="mydir"/>
+		</Manager>
+
+		</Context>
+
+		参数说明：saveOnRestart－服务器关闭时，是否将所有的session保存到文件中；
+		maxActiveSessions－可处于活动状态的session数；
+		minIdleSwap/maxIdleSwap－session处于不活动状态最短/长时间(s)，sesson对象转移到File Store中；
+		maxIdleBackup－超过这一时间，将session备份。(－1表示没有限制)
+
+		存储数据库
+			JDBCStore配置的区别：
+
+			<Store className="org.apache.catalina.session.JDBCStore"
+			checkInterval="1"
+			connectionURL="jdbc:mysql://localhost/test?user=root&amp;password="
+			 driverName="com.mysql.jdbc.Driver"
+			sessionAppCol="app_name"
+			sessionDataCol="session_data"
+			sessionIdCol="session_id"
+			sessionLastAccessedCol="last_access"
+			sessionMaxInactiveCol="max_inactive"
+			sessionTable="tomcat_session"
+			sessionValidCol="valid_session" />
+
+			CREATE TABLE `tomcat_session` (
+			  `session_id` varchar(100) NOT NULL,
+			  `valid_session` char(1) NOT NULL,
+			  `max_inactive` int(11) NOT NULL,
+			  `last_access` bigint(20) NOT NULL,
+			  `app_name` varchar(255) DEFAULT NULL,
+			  `session_data` mediumblob,
+			  PRIMARY KEY (`session_id`),
+			  KEY `kapp_name` (`app_name`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+session 生命周期
+	web.xml
+	单位为分钟
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+
+设置头信息
+	response.setContentType("text/xml; charset=UTF-8");
+    response.setHeader("Cache-Control", "no-cache");
+
+servlet
+	获取初始参数
+		<init-param>
+			<param-name>username</param-name>
+			<param-value>aaaaaaaaaaaaaa</param-value>
+		</init-param>
+		
+		getInitParameter("username");
+
+	控制启动顺序
+		<load-on-startup>1</load-on-startup>值越大越先启动
+
+filter
+	 <filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>com.baidu.SessionFilter</filter-class>
+	  </filter>
+	  <filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	  </filter-mapping>
+
+	  implements javax.servlet.Filter
+
+smartUpload
+	获取页面文本框的值
+		String str4 = upload.getRequest().getParameter("eee");
+	常用方法
+		统计上传文件个数
+			mySmartUpload.getFiles().getCount()
+	Servlet
+		public void doPost(HttpServletRequest request, HttpServletResponse response)
+		{
+			//接收文件并存储到数据库
+			SmartUpload mySmartUpload = new SmartUpload();
+			try {
+				mySmartUpload.initialize(getServletConfig(),request,response);
+				mySmartUpload.upload();
+				mySmartUpload.getFiles().getFile(0).saveAs("f:\\111111.txt");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	jsp
+		//session.getServletContext().getRealPath("/")
+		SmartUpload mySmartUpload = new SmartUpload();
+		mySmartUpload.initialize(pageContext);
+		mySmartUpload.upload();
+		mySmartUpload.getFiles().getFile(0).saveAs("f:\\111111.txt");
+
+问题总结
+	myeclipse jsp页面提示卡死
+		项目－>Properties->在打开的窗口中点击JavaBuildPath－〉单 击Libraries选项卡，找到JRE System Libraries->所有.jar->javadoc location,选中javadoc location,再选择右边的remove,更改成javadoc location:none,点击OK
+
+流下载文件名中文乱码解决
+	<%@ page language="java" import="java.util.*" contentType="text/html; charset=gbk" pageEncoding="gbk"%><jsp:directive.page import="java.io.InputStream"/><jsp:directive.page import="java.io.FileInputStream"/><jsp:directive.page import="java.io.OutputStream"/><jsp:directive.page import="java.net.URLEncoder"/><%	
+		String filename = "文档.rar";//需要下载的文件名字 
+		//解决中文文件名乱码问题
+		if (request.getHeader("User-Agent").toLowerCase().indexOf("firefox") > 0)
+			filename = new String(filename.getBytes("UTF-8"), "ISO8859-1");//firefox浏览器
+		else if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0)
+			filename = URLEncoder.encode(filename, "UTF-8");//IE浏览器
+		response.reset();//如果有换行，对于文本文件没有什么问题，但是对于其它格
+		//式，比如AutoCAD、Word、Excel等文件下载下来的文件中就会多出一些换行符//0x0d和0x0a，这样可能导致某些格式的文件无法打开，有些也可以正常打开。同//时response.reset()这种方式也能清空缓冲区, 防止页面中的空行等输出到下载内容里去
+		response.setContentType("application/octet-stream");
+
+
+		response.setHeader("Content-disposition", "attachment; filename="+filename);
+		String fileName = "g:\\1563.rar";
+		InputStream is = new FileInputStream(fileName);
+		OutputStream os = response.getOutputStream();
+		byte []b = new byte[1024];
+		while (is.read(b)!=-1)
+		{
+			os.write(b);
+		}
+		
+		os.close();
+		is.close();
+	%>

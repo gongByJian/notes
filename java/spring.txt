@@ -1,0 +1,542 @@
+SpringMVC中Controller跳转到另一个Controller方法
+return "redirect:/console/visitorPolicyList.do?action=list&type=1";
+1、直接Redirect后加 Controller/Action   
+	Response.Redirect("/User/Edit");   
+	//  return Redirect("/User/Edit");   
+ 	return RedirectToAction("about","Home");   
+	Response.Redirect("/User/Edit");      
+   
+2、直接return后加 Controller/Action   
+   
+     return Redirect("/User/Edit");              
+   
+3、RedirectToAction方法，直接跳到一个action   
+   
+ 	return RedirectToAction("edit");   
+   
+4、跳转的页并不在该Controller中   
+   
+ 	return RedirectToAction("about","Home"); 
+
+5. redirect跳转 
+	String url = "redirect:test.do";
+	mav = new ModelAndView(url);
+
+
+构造方法 注入
+	<bean id="simpleC" class="spring21.SimpleBean">
+		<constructor-arg index="0">
+			<value>李四</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>123</value>
+		</constructor-arg>
+	</bean>
+	
+
+从spring容器中取对象
+	ApplicationContext context = null ;
+	context = new ClassPathXmlApplicationContext("applicationContext.xml") ;
+	SimpleBean simple = (SimpleBean)context.getBean("simple") ;
+
+定义AOP spring1.x
+	applicationContext.xml
+		<beans>
+			<bean id="before" class="spring33.ProxySubjectBeforeAdvice">
+			</bean>
+			<bean id="after" class="spring33.ProxySubjectAfterAdvice">
+			</bean>
+			<bean id="realsubject" class="spring33.RealSubject">
+			</bean>			
+			<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+				<property name="proxyInterfaces">
+					<value>spring33.Subject</value>
+				</property>
+				<property name="target">
+					<ref bean="realsubject"/>
+				</property>
+				<property name="interceptorNames">
+					<list>						
+						<value>after</value>
+						<value>before</value>
+					</list>
+				</property>				
+			</bean>
+		</beans>
+
+	ProxySubjectBeforeAdvice.java
+		import java.lang.reflect.Method;
+		import org.springframework.aop.MethodBeforeAdvice;
+		public class ProxySubjectBeforeAdvice implements MethodBeforeAdvice {
+
+			public void before(Method arg0, Object[] arg1, Object arg2) throws Throwable {
+				System.out.println("择菜");
+			}
+		}
+
+	ProxySubjectAfterAdvice.java
+		import java.lang.reflect.Method;
+		import org.springframework.aop.AfterReturningAdvice;
+		public class ProxySubjectAfterAdvice implements AfterReturningAdvice {
+			public void afterReturning(Object arg0, Method arg1, Object[] arg2,
+					Object arg3) throws Throwable {
+				System.out.println("刷锅");
+			}
+
+		}
+
+	RealSubject.java
+		public class RealSubject implements Subject{
+			public void request(){
+				System.out.println("做菜");
+			}
+		}
+
+	Subject.java  interface
+		public interface Subject {
+			public void request();
+		}
+
+定义AOP  注解（Annotation） 采用Aspect定义切面 spring2.x
+	通过spring获取对象时，一定要通过接口获取
+
+	applicationContext.xml
+		<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+				<!--aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy--> 
+				<aop:aspectj-autoproxy/> <!-- 启用aspectj对Annotation的支持 -->
+				<bean id="securityHandler" class="com.cjc.spring.SecurityHandler"/>           
+				<bean id="userManager" class="com.cjc.spring.UserManagerImpl"/><!--当本类的add*和del*方法执行的时候，会执行代理类方法-->
+		</beans>
+
+	代理类
+		import org.aspectj.lang.annotation.Aspect;
+		import org.aspectj.lang.annotation.Before;
+		import org.aspectj.lang.annotation.Pointcut;
+
+		@Aspect
+		public class SecurityHandler {
+			@Pointcut("execution(* add*(..)) || execution(* del*(..))")
+			//因为该方法只是个依赖的标识，所以定义成private
+			private void allAddMethod(){};
+			
+			@Before("allAddMethod()")
+			private void checkSecurity() {
+				System.out.println("----------checkSecurity()---------------");
+			}
+
+			@After("allAddMethod()")
+			private void afterFunc() {
+				System.out.println("----------after---------------");
+			}
+		}
+
+定义AOP 配置文件定义 spring2.x
+
+	applicationContext.xml
+		<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">	
+			<bean id="securityHandler" class="com.baidu.SecurityHandler"/>  
+			<bean id="userManager" class="com.baidu.UserManagerImpl"/>			
+			<aop:config>
+				<aop:aspect id="security" ref="securityHandler">
+					<!--execution(* com.baidu.*.biz.save*(..)) || execution(* com.baidu.*.biz.delete*(..)) || execution(* com.baidu.*.biz.update*(..)) 注意加包-->
+					<aop:pointcut id="allAddMethod" expression="execution(* com.baidu.UserManagerImpl.add*(..))"/>
+					<aop:before method="checkSecurity" pointcut-ref="allAddMethod"/>
+					<aop:after method="afterFunc" pointcut-ref="allAddMethod"/>
+				</aop:aspect>
+			</aop:config>	
+		</beans>
+
+	代理类
+		public class SecurityHandler {	
+			private void checkSecurity() {
+				System.out.println("----------checkSecurity()---------------");
+			}
+			
+			private void afterFunc() {
+				System.out.println("----------after---------------");
+			}
+			
+		}
+
+aop spring3.x xml头
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	</beans>
+
+aop spring2.5 xml头
+	<beans xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd" 
+		xmlns:tx="http://www.springframework.org/schema/tx" 
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns="http://www.springframework.org/schema/beans">
+
+CGLIB
+	CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法。因为是继承，所以该类或方法最好不要声明成final
+
+	Spring默认使用的是基于Java Dynamic Proxy模式实现，这样任何的接口都能被代理
+	如果一个业务对象没有实现某一个接口，那么CGLIB将被使用
+	
+
+spring1 声明性事务
+
+	<bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref local="sessionFactory"/>
+        </property>
+    </bean>      
+    <!-- Transactional proxy for the services --> 
+    <bean id="hibernateTxProxy" lazy-init="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"> 
+        <property name="transactionManager"><ref bean="hibernateTransactionManager"/></property> 
+        <property name="transactionAttributes"> 
+            <props> 
+            		<prop key="add*">PROPAGATION_REQUIRED</prop>
+            		<prop key="save*">PROPAGATION_REQUIRED</prop>
+            		<prop key="remove*">PROPAGATION_REQUIRED</prop>
+            		<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop> 
+            		<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop> 
+            		<prop key="do*">PROPAGATION_REQUIRED</prop>
+            		<prop key="import*">PROPAGATION_REQUIRED</prop>
+            </props> 
+        </property> 
+    	<property name="target"><bean class="com.baidu.common.db.BaseBiz" autowire="byName"/></property>
+    </bean>
+
+spring2 声明性事务
+	
+
+	applicationContext.xml
+		<beans xmlns="http://www.springframework.org/schema/beans"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xmlns:aop="http://www.springframework.org/schema/aop"
+				 xmlns:tx="http://www.springframework.org/schema/tx"
+				 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+				   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+				   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+			<bean id="test" class="com.Test">
+				<property name="sessionFactory" ref="sessionFactory"></property>
+			</bean>
+			<bean id="mysql" class="org.apache.commons.dbcp.BasicDataSource">
+				<property name="driverClassName"
+					value="com.mysql.jdbc.Driver">
+				</property>
+				<property name="url" value="jdbc:mysql://localhost:3306/test"></property>
+				<property name="username" value="root"></property>
+			</bean>
+			<bean id="sessionFactory"
+				class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+				<property name="dataSource">
+					<ref bean="mysql" />
+				</property>
+				<property name="hibernateProperties">
+					<props>
+						<prop key="hibernate.dialect">
+							org.hibernate.dialect.MySQLDialect
+						</prop>
+					</props>
+				</property>
+				<property name="mappingResources">
+					<list>
+						<value>com/pojo/T1.hbm.xml</value>
+					</list>
+				</property>
+			</bean>	
+
+			<!-- 事务管理器 -->
+			<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+				<property name="sessionFactory" ref="sessionFactory"></property>
+			</bean>  
+			<!-- 配置事务的传播特性 -->
+			<tx:advice id="advice" transaction-manager="transactionManager">
+				<tx:attributes >
+					<tx:method name="save*" propagation="REQUIRED"/>
+					<tx:method name="delete*" propagation="REQUIRED"/>
+					<tx:method name="update*" propagation="REQUIRED"/>
+				</tx:attributes>
+			</tx:advice>  
+			<aop:config>
+					<aop:pointcut id="allmethod" expression="execution(* com.baidu.oa.biz.*.save*(..)) || execution(* com.baidu.oa.biz.*.delete*(..)) || execution(* com.baidu.oa.biz.*.update*(..))"/>
+					<aop:advisor pointcut-ref="allmethod" advice-ref="advice"/>
+			</aop:config>
+			
+		</beans>
+
+	Test.java 事务控制的类
+		import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+		import com.pojo.T1;
+
+		public class Test extends HibernateDaoSupport implements ITest{
+			public void save()
+			{
+				T1 t1 = new T1();
+				
+				getHibernateTemplate().save(t1);
+				int i = 1/0;
+			}
+		}
+
+自定义标签获取bean对象
+
+	ServletContext servletContext = this.pageContext.getServletContext();
+	WebApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+	NewsBiz newsBiz = (NewsBiz) appContext.getBean("newsBiz");
+
+静态代理
+	public interface Subject {
+		public void request();
+	}
+
+	public class RealSubject implements Subject{
+
+		public void request() {
+			System.out.println("做菜");
+		}		
+	}
+
+	//代理
+	public class ProxySubject implements Subject{
+		private Subject sub=null;
+		public ProxySubject(Subject sub){
+			this.sub=sub;
+		}
+		public void request() {
+			this.before();
+			this.sub.request();
+			this.after();
+			
+		}
+		public void before()
+		{
+			System.out.println("择菜");
+		}
+		public void after(){
+			System.out.println("刷锅");
+		}
+	}
+	
+	//测试
+	public class TestProxy {
+		public static void main(String[] args) {
+			Subject sub=new ProxySubject(new RealSubject());
+			sub.request();
+		}
+	}
+
+动态代理
+
+	
+	import java.lang.reflect.InvocationHandler;
+	import java.lang.reflect.Method;
+	import java.lang.reflect.Proxy;
+	public class SecurityHandler implements InvocationHandler {
+		//要代理的目标对象
+		private Object targetObject;
+		
+		public Object newProxy(Object targetObject) {
+			this.targetObject = targetObject;
+			//System.out.println(this);
+			//targetObject.getClass().getClassLoader()获取要代理的类
+			//targetObject.getClass().getInterfaces()获取要代理的类的接口
+			//this为InvocationHandler接口的实例,即代理类的实例。
+			//返回一个代理类实例，其中指定要代理的类及该类属于那个接口。
+			return Proxy.newProxyInstance(targetObject.getClass().getClassLoader(), 
+										  targetObject.getClass().getInterfaces(), 
+										  this);
+						
+		}
+		//代理类实例生成后会自动调用invoke()
+		//第一个参数是要代理的对象，第二个参数是代理的对象中要代理的方法，第三个参数是代理方法的参数
+		public Object invoke(Object targetObject, Method method, Object[] args)
+				throws Throwable {
+			checkSecurity();
+			Object ret = null;
+			//调用被代理对象的代理方法，方法参数this.targetObject是实际的被代理对象，args为执行被代理对象代理方法所需的参数
+			ret = method.invoke(this.targetObject, args);
+			return ret;
+		}
+
+		private void checkSecurity() {
+			System.out.println("日志记录");
+		}
+		
+	}
+
+	
+	public interface UserManager {
+		public void addUser(String name);		
+	}
+
+	public class UserManagerImpl implements UserManager {
+		public void addUser(String name) {
+			System.out.println("增加用户");
+		}
+		
+	}
+
+	//测试
+	public class Client {
+
+	public static void main(String[] args) {
+			SecurityHandler handler = new SecurityHandler();
+			UserManager userManager = (UserManager)handler.newProxy(new UserManagerImpl());
+			userManager.addUser("张三");
+			
+		}
+	}
+
+spring 定时器动态改变时间
+
+	配置文件
+		<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+			<property name="triggers">
+				<list>
+					<ref local="cronTriggerBean" />
+				</list>
+			</property>
+		</bean>	
+		<bean id="cronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+			<property name="jobDetail">
+				<ref local="jobTest"/>
+			</property>
+			<property name="cronExpression">
+				<value>0 06 22 * * ?</value>
+			</property>
+		</bean>	
+		<bean id="jobTest" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+			<property name="targetObject"><ref bean="testBiz"/></property>
+			<property name="targetMethod"><value>testTrigger</value></property>
+		</bean>
+	改变时间Java代码
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+		SchedulerFactoryBean jobFact = (SchedulerFactoryBean)ctx.getBean("&schedulerFactoryBean");   
+		 
+		CronTriggerBean bean = (CronTriggerBean)ctx.getBean("cronTriggerBean");   
+		String newVal = "0 15 22 * * ?";   
+		bean.setCronExpression(newVal);   
+			
+		jobFact.destroy();     
+		jobFact.afterPropertiesSet();
+
+	通过biz自动执行完成数据加载
+		xlm
+			<bean id="initTrigger2" class="com.baidu.dsd.system.test.biz.TestBiz2" init-method="initTrigger23">
+				<property name="schedulerFactoryBean" ref="&amp;schedulerFactoryBean"></property>
+				<property name="cronTriggerBean" ref="cronTriggerBean"></property>
+			</bean>
+		Biz
+			import org.springframework.scheduling.quartz.CronTriggerBean;
+			import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+			import com.baidu.common.db.BaseBiz;
+			public class TestBiz2 extends BaseBiz{
+				private SchedulerFactoryBean schedulerFactoryBean = null;
+				private CronTriggerBean cronTriggerBean = null;
+				
+				public void initTrigger23()
+				{
+					//应先从数据库里提取数据
+					String newVal = "0 05 8 * * ?";   
+					try {
+						 
+						cronTriggerBean.setCronExpression(newVal);
+						
+						schedulerFactoryBean.destroy();     
+						schedulerFactoryBean.afterPropertiesSet();
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+				public CronTriggerBean getCronTriggerBean() {
+					return cronTriggerBean;
+				}
+
+				public void setCronTriggerBean(CronTriggerBean cronTriggerBean) {
+					this.cronTriggerBean = cronTriggerBean;
+				}
+
+				public SchedulerFactoryBean getSchedulerFactoryBean() {
+					return schedulerFactoryBean;
+				}
+
+				public void setSchedulerFactoryBean(SchedulerFactoryBean schedulerFactoryBean) {
+					this.schedulerFactoryBean = schedulerFactoryBean;
+				}
+
+			}
+
+事务传播行为
+	传播行为               意义 
+	PROPAGATION_MANDATORY 表示该方法必须运行在一个事务中。如果当前没有事务正在发生，将抛出一个异常 
+	PROPAGATION_NESTED 表示如果当前正有一个事务在进行中，则该方法应当运行在一个嵌套式事务中。被嵌套的事务可以独立于封装事务进行提交或回滚。如果封装事务不存在，行为就像PROPAGATION_REQUIRED一样。请注意各厂商对于这种传播行为的支持是参差不齐的。请参考资源管理器的文档，确定它们是否支持嵌套式事务 
+	PROPAGATION_NEVER 表示当前的方法不应该在一个事务性上下文中运行。如果当前正有一个事务在运行，则会抛出一个异常 
+	PROPAGATION_NOT_SUPPORTED 表示该方法不应该在一个事务中运行。如果一个现有的事务正在进行中，它将在该方法的运行期间被挂起 
+	PROPAGATION_REQUIRED 表示当前方法必须在一个事务中运行。如果一个现有的事务正在进行中，该方法将会在那个事务中运行。否则的话，就要开始一个新的事务 
+	PROPAGATION_REQUIREDS_NEW 表示当前方法必须在它自己的事务里运行。一个新的事务将被启动，而且如果有一个现有事务正在运行的话，则将在这个方法运行期间被挂起。如果正在使用JTATransactionManager，则需要访问TransactionManager 
+	PROPAGATION_SUPPORTS 表示当前方法不需要事务性上下文，但是如果有一个事务已经在运行的话，它也可以在这个事务里运行 
+
+	事务隔离级别
+	隔离级别           含义 
+	ISOLATION_DEFAULT 使用后端数据库默认的隔离级别 
+	ISOLATION_READ_UNCOMMITTED 允许读取尚未提交的更改。可能导致脏读、幻读或不可重复读 
+	ISOLATION_READ_COMMITED 允许从已经提交的并发事务读取。可防止脏读、幻读或不可重复读 
+	ISOLATION_REPEATABLE_READ 对相同字段的多次读取的结果是一致的，除非数据被当前事务本身改变。可防止脏读和不可重复读，但幻读仍可发生 
+	ISOLATION_SERIALIZABLE 完全服从ACID的隔离级别，确保不发生脏读、不可重复读和幻读。这在所有隔离级别中也是最慢的，因为它通常是通过完全锁定当前事务所涉及的数据表来完成的。 
+
+Jsp里获取Biz
+	//ActionContext actionContext = intercation.getInvocationContext();   
+	//ServletContext context = (ServletContext) actionContext.get(StrutsStatics.SERVLET_CONTEXT);  
+	ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+	treeBiz =(TreeBiz)ctx.getBean("treeBiz");
+
+spring字符编码过滤器，对struts2.1.8不起作用
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>GBK</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>

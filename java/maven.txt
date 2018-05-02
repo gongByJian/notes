@@ -1,0 +1,114 @@
+在ide中执行命令不用输入 mvn
+//发布项目包
+mvn clean:clean deploy -Pnew_test -Dmaven.test.skip=true
+
+安装本地jar到本地仓库 ：
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=11.2.0.4 -Dpackaging=jar -Dfile=D:/workspace_mine/ibatis/src/cn/student/project/ibatis/ojdbc14-11.2.0.4.jar
+mvn install:install-file -Dfile=D:\localjar\winzipaes.jar -DgroupId=de.idyl.crypto -DartifactId=winzipaes -Dversion=0.0.1 -Dpackaging=jar  -DgeneratePom=true -DcreateChecksum=true
+
+自动更新多模块项目 子项目的版本
+mvn -N versions:update-child-modules  或  mvn versions:set -DnewVersion=1.0.1-SNAPSHOT
+
+mvn archetype:create 创建Maven项目
+mvn archetype:generate  创建mvn项目
+
+mvn compile 编译源代码
+mvn [clean] compile [-u]     编译
+
+mvn deploy 发布项目
+
+mvn test-compile 编译测试源代码
+mvn test 运行应用程序中的单元测试   -- 编译并测试
+
+mvn site 生成项目相关信息的网站
+
+mvn clean 清除项目目录中的生成结果 -- 删除target目录
+
+mvn install 在本地Repository中安装jar -- 打包后放入本地仓库
+
+eclipse相关
+mvn eclipse:eclipse 生成eclipse项目文件(.project, .classpath, .settings)
+mvn eclipse:clean 删除项目信息(.project, .classpath)
+mvn [clean] -Dwtpversion=1.5 eclipse:eclipse [-u]        使用eclipse的程序员,生成Wtp插件的Web项目。
+mvn [clean] eclipse:myeclipse  使用myeclipse的程序员,生成Wtp插件的Web项目。
+mvn -Dwtpversion=1.5 eclipse:clean        清除Eclipse项目的配置信息(Web项目)
+
+mvn -Dmaven.test.skip=true	跳过测试用例
+
+mvn jetty:run     启动jetty服务
+
+mvn tomcat:run 启动tomcat服务
+
+mvn package 根据项目生成的jar -- 生成target目录,编译、测试代码,生成测试报告,生成jar/war文件
+mvn clean package -Dmaven.test.skip=true:清除以前的包后重新打包,跳过测试类
+
+mvn -P 实现多环境打包
+
+mvn -version/-v  显示版本信息
+
+mvn [clean] eclipse:eclipse [-u]                将项目转化为Eclipse项目
+mvn -e            显示详细错误 信息.
+
+mvn validate        验证工程是否正确,所有需要的资源是否可用。
+mvn verify        运行任何检查,验证包是否有效且达到质量标准。
+
+mvn integration-test     在集成测试可以运行的环境中处理和发布包。
+mvn generate-sources    产生应用需要的任何额外的源代码,如xdoclet。
+
+依赖关系查询
+mvn dependency:tree
+mvn dependency:analyze
+mvn dependency:list
+
+mvn help:system
+
+maven安装
+	修改仓库位置
+		conf/settings.xml
+
+			<localRepository>d:/maven/jars/local/repository</localRepository>
+
+			<mirror>
+			  <id>nexus</id>
+			  <mirrorOf>*</mirrorOf>
+			  <name>Nexus Public Mirror.</name>
+			  <url>http://repo1.maven.org/maven2</url>
+			</mirror>
+
+
+MyEclipse配置Maven
+
+	Window --> Preferences --> MyEclipse --> Maven4MyEclipse --> Maven
+		确定正确的JDK
+
+Eclipse配置Maven
+
+	Window --> Preferences --> Maven
+
+	Installations
+		选择自已的Maven目录
+
+	User Settings
+		选择自已的settings.xml目录
+
+
+
+搭建Maven私服
+Nexus
+	修改配置文件
+		conf/nexus.properties
+			nexus-work=D:/soft/java_soft/nexus-2.3.1-01/sonatype-work/nexus
+		nexus/WEB-INF/plexus.properties
+			nexus-work=D:/soft/java_soft/nexus-2.3.1-01/sonatype-work/nexus
+	启动
+		bin/nexus install 不安装无法启动
+		bin/nexus start
+
+	登录:http://localhost:8081/nexus
+		admin/admin123
+
+	打开远程下载
+		repositories->central->configuration->download=true
+
+	打开所有仓库可用
+		repositories->public repositories->configuration 右边移到左边

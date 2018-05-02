@@ -1,0 +1,192 @@
+参数绑定　
+
+　　　　当DAO方法中只存在一个参数时，在mapper文件#{}中填写任意内容都可以识别。
+
+　　　　当DAO方法中存在多个参数时，有以下两种解决方案：
+
+a、以起始自0的下标#{0}#{1}#{2}来区分
+
+　　　　　　java类：
+
+public interface UserDao{
+    
+    public User queryUser(String name,String password);
+
+}
+　　　　　　mapper文件：
+
+
+<mapper namespace="xxxxx.UserDao">
+    
+    <select id="queryUser" resultType="User">
+        select * from t_user where name =#{0} and password = #{1}
+    </select>
+
+</mapper>
+
+　　　　　　这样书写，mybatis便会顺序识别，自动将name跟#{0}匹配，password跟#{1}匹配。
+
+　　　　b、通过注解来进行绑定（推荐）
+
+　　　　　　java类：
+
+public interface UserDao{
+    
+    public User queryUser(@Param("name")String name,@Param("password")String password);
+
+}
+　　　　　　mapper文件：
+
+
+<mapper namespace="xxxxx.UserDao">
+    
+    <select id="queryUser" resultType="User">
+        select * from t_user where name =#{name} and password = #{password}
+    </select>
+
+</mapper>
+
+　　　　　　这种写法类似于给参数起了一个名字，在mapper文件里直接通过所起的名字来对应。这种方法更加灵活。
+
+
+
+foreach oracle批量插入
+	<!-- 批量插入数据 -->
+	<insert id="batchInsertEsEggsAppCardOrder" parameterType="java.util.List">
+		<![CDATA[
+		INSERT All
+		]]>
+		<foreach collection="list" item="item">
+		 INTO POWEREGGS.ES_EGGS_APP_CARD_ORDER (
+			CARD_ORDER_ID,
+			MEMBER_ADDRESS_ID
+		)VALUES( 
+			#{item.cardOrderId,jdbcType=VARCHAR},
+			#{item.memberAddressId,jdbcType=VARCHAR}
+		)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+	
+foreach in查询
+	<!-- 根据货品ID查询货品列表 查询视图 -->
+	<select id="queryGoodsListByProductIds" resultType="com.power.eggs.card.bean.GoodsBean" parameterType="java.util.Map">
+		SELECT * FROM ES_EGGS_APP_MALL_PRODUCT T WHERE T.PRODUCTID IN
+	 	<foreach collection="productIds" index="index" item="item" open="(" separator="," close=")">  
+        #{item}
+    	</foreach>
+    	 ORDER BY DECODE(PRODUCTID,${orderByStr})
+	</select>
+
+参数为list
+	<update id="updateOverDueOrder" parameterType="java.util.List">
+		UPDATE MF_REPAYMENT_DETAIL  T SET T.OVERDUE_STATUS = '1',T.REPAYMENT_STATUS = '3' WHERE 
+		T.REPAYMENT_STATUS = '1'
+		AND T.ID IN 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")"> 
+		    #{item} 
+		</foreach>
+	</update>
+	
+删除and或or
+	<update id="update" parameterType="com.enation.mybatis.model.OrderMybatis">
+        update es_order
+        <trim prefix="set" suffixOverrides=",">
+            <if test="payMessage != null">pay_message = #{payMessage},</if>
+            <if test="commentStatus != null">comment_status = #{commentStatus},</if>
+        </trim>
+ 		where
+		<trim prefixOverrides="AND|OR">
+            <if test="sn != null">AND sn = #{sn}</if>
+            <if test="orderId != null">AND order_id = #{orderId}</if>
+        </trim>
+	</update>
+
+resultMap type为bean全路径  column为数据库列名  property为bean中对应字段名
+ 	<resultMap id="orderResultMap" type="com.bean">
+        <id column="order_id" property="orderId"/>
+        <result column="pay_message" property="payMessage"/>
+        <result column="order_type" property="orderType"/>
+        <result column="confirm_status" property="confirmStatus"/>
+    </resultMap>
+    
+删除最后逗号
+ 	<trim suffixOverrides=",">
+            <if test="payMessage != null">#{payMessage},</if>
+            <if test="orderType != null">#{orderType},</if>
+            <if test="confirmStatus != null">#{confirmStatus},</if>
+            <if test="refundStatus != null">#{refundStatus},</if>
+    </trim>
+
+判断字符串
+	<if test="null != status and '1'.toString() != status">
+	</if>
+	或
+	<if test='null != status and "1" != status'>
+	</if>
+	不可直接判断,以下写法判断无效
+	<if test="null != status and '1' != status">
+	</if>
+		  
+foreach union all
+	入参
+		String[] msgTypes = new String[msgTypeList.size()];
+		Map m = new HashMap();
+		m.put("msgTypeList", msgTypes);
+		m.put("userId", userId);
+		
+	<select id="getLastMsgGroupByType" resultType="bean" parameterType="java.util.Map">
+		<foreach collection="msgTypeList" index="index" item="item" separator=" UNION ALL " >  
+			<![CDATA[
+				SELECT *
+				FROM ( SELECT T.* FROM X_TABLE t WHERE t.msg_type = #{item} and t.user_id = #{userId} ORDER BY GMT_CREATE DESC ) U WHERE ROWNUM = 1
+			]]>
+	    </foreach>
+    </select>
+    
+---------------------IBATIS---------------------
+
+转义字符
+	<select id="selectAllGoods" resultClass="ecsGoods" parameterClass="int">  	
+		select g.goods_id goodsId, g.goods_name goodsName,g.goods_thumb thumbUrl,g.shop_price shopPrice
+		from ecs_goods g
+		<![CDATA[where rownum <= 10]]>		
+		<!-- include refid="findAllWhere"/--><!-- 引入条件 -->
+		<!-- 
+		<dynamic prepend="where">
+			<isNotEqual  compareValue="0" prepend="and" property="sid">
+				sid = #sid#
+			</isNotEqual>  		
+		</dynamic>
+  		-->
+	</select>
+
+
+	<select id="selectAllGoods" resultClass="ecsGoods" parameterClass="int">
+		select g.goods_id goodsId, g.goods_name goodsName,g.goods_thumb thumbUrl,g.shop_price shopPrice
+		from ecs_goods g
+		where rownum <= 10  	
+	</select>
+
+
+动态语句
+	<select id="selectAllGoods" resultClass="ecsGoods" parameterClass="HashMap">  	
+		select g.goods_id goodsId, g.goods_name goodsName,g.goods_thumb thumbUrl,g.shop_price shopPrice
+		from ecs_goods g
+		where 1 = 1   	
+		<dynamic prepend="and">  	
+			<isNotEqual  compareValue="0" prepend=" and " property="catId">
+				g.cat_id = 5
+			</isNotEqual>   				
+		</dynamic>
+  
+	</select>
+
+输出sql
+	log4j.logger.com.ibatis=debug 
+	log4j.logger.com.ibatis.common.jdbc.SimpleDataSource=debug 
+	log4j.logger.com.ibatis.common.jdbc.ScriptRunner=debug 
+	log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate=debug 
+	log4j.logger.java.sql.Connection=debug 
+	log4j.logger.java.sql.Statement=debug 
+	log4j.logger.java.sql.PreparedStatement=debug

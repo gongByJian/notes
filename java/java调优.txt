@@ -1,0 +1,50 @@
+1.使用原始类型和栈
+上面介绍了来自 jOOQ的例子中使用了大量的泛型，导致的结果是使用了 byte、 short、 int 和 long 的包装类。但至少泛型在Java 10或者Valhalla项目中被专门化之前，不应该成为代码的限制。因为可以通过下面的方法来进行替换：
+
+//存储在堆上
+Integer i = 817598;
+……如果这样写的话：
+
+// 存储在栈上
+int i = 817598;
+在使用数组时情况可能会变得更加糟糕：
+
+//在堆上生成了三个对象
+Integer[] i = { 1337, 424242 };
+……如果这样写的话：
+
+// 仅在堆上生成了一个对象
+int[] i = { 1337, 424242 };
+
+
+2.不要使用iterator()方法
+for (String value : strings) {
+    // Do something useful here
+}
+当每次代码运行到这个循环时，如果 strings 变量是一个 Iterable 的话，代码将会自动创建一个Iterator 的实例。如果使用的是 ArrayList 的话，虚拟机会自动在堆上为对象分配3个整数类型大小的内存。
+
+无论是从易读写的角度来说，还是从API设计的角度来说迭代器、Iterable接口和 foreach 循环都是非常好用的。但代价是，使用它们时是会额外在堆上为每个循环子创建一个对象。如果循环要执行很多很多遍，请注意避免生成无意义的实例，最好用基本的指针循环方式来代替上述迭代器、Iterable接口和 foreach 循环。
+
+
+JAVA编程实践：
+1.设计API时永远不要返回空(null)数组或List
+
+尽管在一些情况下方法返回值为null是可以的，但是绝不要返回空数组或空集合！请看 java.io.File.list()方法，它是这样设计的：
+File directory = // ...
+ 
+if (directory.isDirectory()) {
+  String[] list = directory.list();
+ 
+  if (list != null) {
+    for (String file : list) {
+      // ...
+    }
+  }
+}
+大家觉得null检查有必要吗？大多数I/O操作会产生IOExceptions，但这个方法却只返回了null。Null是无法存放I/O错误信息的。因此这样的设计，有以下3方面的不足：
+Null无助于发现错误
+Null无法表明I/O错误是由File实例所对应的路径不正确引起的
+每个人都可能会忘记判断null情况
+
+以集合的思维来看待问题的话，那么空的(empty)的数组或集合就是对“不存在”的最佳实现。返回空(null)数组或集合几乎是无任何实际意义的，除非用于延迟初始化。
+规则：返回的数组或集合不应为null。

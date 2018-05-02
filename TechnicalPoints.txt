@@ -1,0 +1,245 @@
+OAuth（开放授权） --百度开放平台，腾讯开放平台等大部分的开放平台都是使用的OAuth 2.0协议作为支撑。
+	是个安全相关的协议，作用在于，使用户授权第三方的应用程序访问用户的web资源，并且不需要向第三方应用程序透露自己的密码。
+restful   --环信API使用的是此种风格
+	一种软件架构风格，设计风格而不是标准，只是提供了一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。
+	URL定位资源，用HTTP动词（GET,POST,DELETE,DETC）描述操作。
+	
+solr 搜索
+
+dubbo
+zookeeper
+bugfree    bug管理
+jenkins    持续集成
+
+svn
+
+TREE
+	JQUERY ZTREE
+	DTree
+	DXTree
+
+jvm调优
+dbcp 连接池
+
+日志管理
+	log4j    日志管理
+	logback    日志管理 优于log4j
+
+JFINAL    JAVA框架
+
+ireport 报表  快逸报表 jasperreports
+
+饼状图 柱状图
+	fusionCharts  JFreeChart
+
+webService  XFire/axis 、CXF
+
+ibatis -> 新版名mybatis
+
+poi、jxl
+	jxl技术说明
+		支持比较低版本的excel，比如Excel 95 ,97 ,2000，2003
+		由于Excel版本比较低，导致最大行有限制，无法导出65535以上量级的数据
+		对于内存，和时间的花费也比POI基于内存+磁盘的方式高。
+
+		1. 读取Excel公式（可以读取Excel 97以后的公式）
+		2. 生成Excel数据表（格式为Excel 97）
+		3. 支持字体、数字、日期的格式化
+		4. 支持单元格的阴影操作，以及颜色操作
+		5. 修改已经存在的数据表
+		6. 是最基础的excel api
+		7. 小文件读取效率比较高
+		8. 跨平台
+	POI技术说明
+		能保持Excel里原有的宏（但不能用它写新的宏）。
+		不支持跨平台（主要就是Java语言）
+		在一些业务场景中代码相对复杂，但是API丰富，支持多种模式的读写。
+		支持比较新版本的excel.
+		读写的时候比较占内存。
+		读写的时候比较占内存。
+		支持大数量大文件的读写操作。但是需要熟悉API。
+		总体来说，对于简单的单表excel导入导出的需求，建议使用JXL。数据量稍微小点，占用内存少，速度快。
+		对于报表类的，涉及月份数据量，多表数据聚合在一起建议使用POI。
+
+UML建模、pd、rose
+
+项目管理
+	ant发布
+
+	maven
+		私服安装
+		常用插件
+		自定义项目模板
+
+框架
+	spring MVC
+
+缓存
+	memcache
+	oscache
+	ehcache
+	redis 分布式缓存
+
+前段框架
+	ext	
+
+工作流   JBPM	4.4	5
+
+搜索引擎
+	lucene	
+		compass
+
+sql注入/js攻击
+
+sql优化
+
+数据库优化
+
+域名绑定
+
+编辑器
+	FCKEditor	(浏览器不兼容)
+	CKEditor
+	kindeditor	
+
+常见服务器 tomcat jboss weblogic websphere
+
+消息推送 pushlet/dwr  友盟push
+
+模板引擎  FreeMark、volicity、smarty4j、BEETL
+
+squid页面静态化
+
+linux 环境安装(jdk tomcat)
+
+batch批处理sql
+
+集群 nginx apache
+
+oracle 集群 （复制） mysql 集群  apache/tomcat集群
+
+线程安全、线程锁
+
+JPA
+OFBiz
+
+云计算
+
+sphinx 基于SQL的全文检索引擎
+
+消息中间件 mq
+
+acegi-->Spring Security
+
+hibernate 
+	缓存、二级缓存
+	hibernate search
+
+乐观锁和悲观锁
+
+数据库读写分离
+
+物联网
+
+网站信息统计
+
+java 分布式文件系统
+
+java 
+	xml解析
+											
+	拦截器、过滤器、监听
+
+	ftp上传
+
+	邮件发送/附件/接收
+
+	短信发送  https://luosimao.com/service/sms   阿里大鱼
+
+	模拟登录 httpclient  Url
+										
+	权限分配
+
+	强制退出、session入库
+	
+	保留登陆状态
+										
+	图片缩略图/水印/验证码
+	
+	三次密码失败			
+
+	定时 spring 动态定时		
+
+	统计在线用户
+
+	单元测试Junit
+
+	flex 实现多文件上传
+
+	伪静态
+
+	防止重复提交
+
+	信息采集  火车头
+
+	聚合支付  ping++
+
+	itext pdf
+
+	单点登录
+		opensso
+		ja-sig cas
+		josso
+		atlassian crowd
+		shiro单点
+
+	泛型 T
+
+	定时任务
+
+	调度
+
+	触发器
+
+	算法
+	
+	网络爬虫
+
+web 前端 7d:
+---------------------------------------------------------------------------------
+		1) HTML :
+			目标：	能识别HTML标签的语义
+			资源：	w3c
+		2) JavaScript(js)
+			目标：  熟练掌握window以及dom操作api
+			资源：	w3c
+			JS框架:	jQuery、 ExtJS 、 prototype
+			工具: 	FireFox(firebug) Chrome
+
+		3) CSS：
+			目标:   能指定样式的概念并指定 css 的工作方式
+			资源：	w3c
+
+		4) JSP(Java Server Pages): 可以编写Java代码的HTML
+			环境：	需要Web容器(Tomcat、Jetty、JBoss)
+
+---------------------------------------------------------------------------------
+J2EE 主流开发框架:
+
+	.MVC: SpringMVC、 Struts2
+		主要知识点: Servlet
+
+---------------------------------------------------------------------------------
+
+	.SpringFramework
+			  功能：负责管理维护Java对象的生命周期
+		主要知识点:	Dynamic Proxy（动态代理）
+
+
+---------------------------------------------------------------------------------
+
+	.ORM：Hibernate、iBatis
+		      功能：方便对数据库的操作
+		主要知识点:	需要具备一定的的关系型数据库(Oracle、DB2、MySQL)操作基础
+---------------------------------------------------------------------------------
+
