@@ -1,0 +1,352 @@
+Oracle 笔记
+
+Oracle数据库中查询按IN条件的顺序输出
+使用decode函数
+
+查询数据库版本
+select * from v$version;
+结果如下：
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+PL/SQL Release 11.2.0.4.0 - Production
+CORE    11.2.0.4.0  Production
+TNS for Linux: Version 11.2.0.4.0 - Production
+NLSRTL Version 11.2.0.4.0 - Production
+
+
+pl/sql客户端设置自动生成
+	工具--首选项--用户界面--编辑器--自动替换
+		例如
+		s=SELECT
+		f=FROM
+		w=WHERE
+		or=ORDER BY
+		d=DELETE
+		de=DESC
+	设置自动选择语句
+	工具--首选项--窗口类型--sql窗口--勾选自动选择语句
+	
+	设置保存登录历史
+	工具--首选项--oracle--登录历史--勾选存储历史 带口令存储
+	
+
+小数问题  
+	SELECT 5/100 || '元' FROM dual
+	查询结果
+	------
+	.05元
+
+----->节省空间0.5保存到数据库为.5
+
+1、解决 scott 被锁的问题
+   sqlplus /nolog
+   conn sys/password as sysdba
+   alter user scott identified by tiger;
+   alter user scott account unlock;
+
+   另外一种方法
+   1）以  sys/sysdba登录； 2）打开命令窗口； 3）alter user scott account unlock;   4）conn  scott;      tiger  
+   5）, 输入新密码 tiger                                                
+
+2、四类操作语言
+   DDL：数据定义语言（Data Definition Language）
+         create、drop、alter
+   DML:数据操作语言（Data Manipulate Language）
+         create、read、update、delete
+   TCL:事务控制语言（Transaction Control Language）
+        commit、rollback、savapoint
+   DCL:数据控制语言（Data Control Language）
+        grant（授权）、revoke(收权)
+       例子：grant select,update on student to fw(人)
+             revoke ...form
+
+3、示例数据库
+   scott  密码：tiger
+   
+   scott 下三个表：
+   1）部门表 Dept（department）
+       (1) deptno  部门编号（ID）   primary key
+       (2) dname   部门名称
+       (3） loc     部门位置
+   2）Emp（employee）员工表
+       (1) empno   员工编号（ID）    primary key
+       (2) deptno  员工所在部门编号  foreign key
+       (3) ename   员工姓名
+       (4) hiredate  入职日期
+       (5) salary   工资
+       (6) comm     补贴
+       (7） job      职位
+      （8） mgr      直接领导（ID）
+   3）SalGrade 薪档表
+       (1)  Grade  A-D  E   F
+       (2)  HISAL     59   90
+       (3)  LOSAL     1     9
+
+2013/10/17
+
+数据定义语言 DDL[create(创建)、drop（删除）、alter（修改）] data define language
+数据操纵语言 DML[C(create)、R(read)、U(update)、D(delete) ] data manipulate language
+数据控制语言 DCL[grant(授予)、revoke(收回)] data control language
+事务控制语言 TCL [commit(提交)、rollback(回滚)、savepoint(保存点)] transaction control language
+
+zhw grant select,update on student to zhch;
+zhw revoke select,update on student from zhch;
+
+
+dept(department 部门表)：
+deptno	部门编号
+dname   部门名称
+loc     部门所在位置
+
+
+emp（employee 员工表）：
+empno     员工编号
+deptno    部门编号
+ename     员工姓名
+hiredate  入职日期
+salary    工资
+job       工作
+comm      补贴
+mgr       直接上司
+
+
+salgrage（薪资表）：
+grade   等级
+hisal   最高工资
+losal   最低工资
+
+
+
+2013/10/18
+
+DDL:
+create:1>界面 
+       2>SQL
+alter:1>add     增加列
+      2>modify  修改字段类型（包括长度）
+      3>rename  修改字段名称
+      4>drop    删除表
+drop:1>drop table sxm;
+
+创建表    create table score(id int,score float,grade char(1));
+
+插入数据  insert into score values(01,66,'D');
+
+添加一列  alter table SCORE add course varchar2(20);
+
+删除一列  alter table SCORE drop column GRADE;
+
+修改字段类型  alter table SCORE modify grade char(6);
+
+添加主键  alter table SCORE
+ 	  add constraint pk primary key (ID);
+DML:
+insert:1>全部字段
+       2>部分字段
+       3>创建空表
+       4>条件查询
+       5>条件插入
+
+全部字段  insert into score values(01,66,'D');
+
+部分字段  insert into score(id,score) values(01,66);
+
+创建空表  create table biao1 as select * from emp where 1=0;
+
+带条件查询   select * from emp where sal>2000;
+
+带条件插入   insert into biao1 select * from emp where sal>2000;
+
+select:1>查询所有
+       2>查询指定字段
+       3>带条件查询
+       4>查询并排序
+
+查询全部字段信息 select * from score;
+
+查询指定字段 select empno,job from emp;
+
+带条件查询   select empno,job,sal from emp where sal>2000;
+
+带条件插入   insert into biao1 select * from emp where sal>2000;
+
+查询并排序   select empno,job,sal from emp where sal>2000 order by sal asc;（asc 升序）
+	     select empno,job,sal from emp where sal>2000 order by sal desc;（desc 降序）
+
+查询并分组排序  select deptno,sum(sal) from emp group by deptno order by sum(sal) desc;
+
+删除表  drop table score;
+
+
+分组查询：max、min、count、sum、avg
+          例 select deptno,max(sal) s from emp group by deptno order by s desc;
+
+
+1.字段运算
+  select empno,sal,comm,sal+nvl(comm,0) from emp;
+2.别名
+  select empno,sal,comm,sal+nvl(comm,0) as total from emp;
+3.连接符
+  select xing||ming as abc from shen;
+4.is（not） like
+  in  null
+  is（not） select * from emp2 where comm is null;
+            select * from emp2 where comm is not null;
+  模糊查询  select * from emp2 where ename like '%C%';
+  in        select * from emp2 where sal in(select sal from emp2 where sal>2000);
+  null      select * from emp2 where comm is null;
+
+5.子查询（把另外一个语句作为一个条件）
+  例：查询出各个部门薪水最高的员工的全部信息。
+     方法一 select * from emp2 where deptno||','||sal in (select deptno||','||max(sal) from emp group by deptno);
+     方法二 select * from emp2 where (deptno,sal) in (select deptno,max(sal) from emp group by deptno);
+6.几种连接
+
+1> 交叉连接 select * from emp2 cross join dept;
+
+2> 内连接 select * from emp2 e inner join dept d on d.deptno= e.deptno;
+
+3> 左连接 select * from emp2 e left join dept d on d.deptno= e.deptno;
+
+4> 右连接 select * from emp2 e right join dept d on d.deptno= e.deptno;
+5> 全连接 select * from emp2 e full join dept d on d.deptno= e.deptno;
+
+
+6> 不等值连接
+
+
+--------------------------------------------
+
+oracle10g
+	install\portlist.ini  端口配置文件
+	http://localhost:1158/em  控制台登录地址
+	http://localhost:5560/isqlplus  isql*plus url
+	http://localhost:5560/isqlplus/dba   isql*plus dba url
+
+oracle10g 控制台 输入操作系统的用户名和密码,系统报错
+	1、这个主机身份证明仅仅具有Administrator权限还不够,还必须必须在本地安全策略中进行注册。操作如下,打开控制面 板\管理工具\本地安全策略,在左侧页面的本地策略\用户权利指派中找到作为批处理作业登录选项,双击打开,把Administrator用户加入用户组,点击确定。
+	2、重新输入主机身份证明的用户名和密码（也就是注册的Administrator用户名和密码）,问题得到解决。
+
+exp 连接远程
+	exp user/pass@test
+
+存储过程
+
+	
+
+	例：
+		create or replace procedure proc_rpt_user_achievement(outparam1 out varchar,sdate in varchar) is
+		vdate date;
+		cWeek varchar2(30);
+		isok  number;
+		Result varchar2(100);
+		cursor sells is
+		  select u.userid--,u.userrealityname,u.isenable,FUNC_JOIN_ROLES(u.userid)
+		  from dsd_user u
+		  where u.ml = 1
+		  and u.ismoto = 0;
+		begin
+			outparam1:='error';
+			if(nvl(sdate,'0')='0') then
+			  vdate:=to_date(sysdate,'yyyy-mm-dd');
+			else
+			  vdate:=to_date(sdate,'yyyy-mm-dd');
+			end if;
+
+			--查询当前摩周的上一摩周
+			select dmc.mc_week into cWeek from dsd_motorola_calendar dmc
+			where dmc.mc_date=
+			(
+			  select min(mc_date)-1 from dsd_motorola_calendar where mc_week=
+			  (
+				select dmc.mc_week  from dsd_motorola_calendar dmc
+				where to_char(dmc.mc_date,'yyyy-mm-dd')=to_char(vdate,'yyyy-mm-dd')
+			  )
+			);
+			--真对销售人员存储信息
+			 for users in sells loop
+				 Result := FUNC_RPT_USER_ACHIEVEMENT(users.userid,cWeek);
+			 end loop;
+		  if(isok=1) then
+			 outparam1:='ok';
+		  end if;
+		end;
+		/
+
+函数
+   create or replace function FUNC_JOIN_SUBINPUT(skey number) return varchar2 is
+      Result varchar2(500);
+      cursor cur_sku is
+        select sku.sku_code from dsd_sku sku
+        where sku.prod_id=skey
+              and sku.sku_status=1;
+    begin
+        Result:='';
+        --根据产品id查询相对应的sku_code,并把有多个skucode拼成一个字符串
+        for vsku in cur_sku loop
+           begin
+               Result:=Result||','||vsku.sku_code;
+           end;
+        end loop;
+    return(Result);
+    end FUNC_JOIN_SUBINPUT;
+    /
+
+视图
+    create or replace view test_view as
+      select *
+        from tt
+
+tnsnames.ora
+	本文件存在 network/admin/
+    ORACLE9I_172.19.205.9 =
+      (DESCRIPTION =
+        (ADDRESS_LIST =
+          (ADDRESS = (PROTOCOL = TCP)(HOST = 172.19.205.9)(PORT = 1521))
+        )
+        (CONNECT_DATA =
+          (SID = oracle9i)
+          (SERVER = DEDICATED)
+        )
+      )
+
+表空间
+	CREATE  TABLESPACE "OA" DATAFILE 'C:\ORACLE\PRODUCT\10.2.0\ORADATA\ORCL\OA.DBF' SIZE 100M
+
+	CREATE TABLESPACE "OA" 
+    LOGGING 
+    DATAFILE 'F:\ORACLE\ORADATA\ORCL\OA.ora' SIZE 5M EXTENT 
+    MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT  AUTO 
+
+锁表
+	select p.spid,
+	c.object_name,
+	b.session_id,
+	b.oracle_username,
+	b.os_user_name
+	from v$process p, v$session a, v$locked_object b, all_objects c
+	where p.addr = a.paddr
+	and a.process = b.process
+	and c.object_id = b.object_id;
+
+sequence取值
+	select seq.nextval from dual
+	insert into(id,name) values(seq.nextval,'aaaa')
+
+PD去双引号	
+	DataBase->EditCurrent Dbms->Script->Sql->Format->CaseSensitivityUsingQuote->改成no 去掉生成sql语句双引号
+
+递归
+	--prior 关键字
+	--从根找所有的子节点
+	select * from oa_hr_department start with deptpid = 0 connect by prior deptid = deptpid
+
+	--根据儿子找到所有的前辈
+	select * from oa_hr_department start with deptid = 3 connect by prior deptpid = deptid
+
+Oracle10g版本改变IP,监听不到问题
+	把Net Manager->Oracle Net 配置->本地->服务命名->orcl(SID)->主机名 改成计算机名,或新的IP地址
+	把Net Manager->Oracle Net 配置->本地->监听程序->Listener->主机名 改成计算机名,或新的IP地址
+	
+	重启：
+		OracleOraDb10g_home1TNSListener 监听服务
+		OracleDBConsoleorcl 控制台服务
