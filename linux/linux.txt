@@ -18,6 +18,10 @@ mv             移动文件
 rm             删除文件
 sz             下载文件
 
+增加执行权限
+chmod +x ./ownshell.sh
+
+ps -ef|grep microfinance-openapi|grep -v "grep"|grep -v "tail"|awk '{print $2}'|xargs kill -9
 
 ps -ef|grep lc_sanbiao_9101|grep -v "grep"|awk '{print $2}'
 
