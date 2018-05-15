@@ -1,3 +1,12 @@
+查看Linux机器的外网IP
+  curl icanhazip.com  
+  curl ifconfig.me  
+  curl curlmyip.com  
+  curl ip.appspot.com  
+  curl ipinfo.io/ip  
+  curl ipecho.net/plain  
+  curl www.trackip.net/i
+
 使用命令：rpm -aq查看所有软件；查看指定名字的软件：rpm -aq|grep 软件名；可以使用：rpm --help查看详细参数
 
 rpm 安装卸载
