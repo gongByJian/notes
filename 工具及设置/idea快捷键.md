@@ -20,6 +20,9 @@
     CTRL + ALT + U 查看类UML图 简单版
     CTRL + ALT + SHIFT + U 查看类UML图
     CTRL + SHIFT + U 切换大小写
+    CTRL + ALT + F7 或 ALT + F7 查看方法被谁调用
+    CTRL + ALT + B 查找方法实现类
+    ALT + 鼠标点击  显示变量值 
     CTRL + P 方法参数提示,可以看到这个方法有哪些多态方法
     SHIFT + ALT + INSERT 竖编辑模式
     CTRL + 空格 代码提示 

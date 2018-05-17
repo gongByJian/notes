@@ -165,6 +165,8 @@ pushlet/dwr  开源框架
 	友盟push
 ```
 
+#### 学习建议
+
 ##### web 前端 :
 
 		1) HTML :
@@ -191,4 +193,3 @@ pushlet/dwr  开源框架
 	.ORM：Hibernate、iBatis
 		      功能：方便对数据库的操作
 		主要知识点:	需要具备一定的的关系型数据库(Oracle、DB2、MySQL)操作基础
-
