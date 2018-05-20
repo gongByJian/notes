@@ -8,6 +8,7 @@
 	复制行 CTRL + D
     重命名 SHIFT + F6
 	查找文件 CTRL + SHEFT + N
+    自动补全等号左边 CTRL + ALT + V
     上下移动代码 CTRL + SHIFT + 上下键
     打开光标处的类或方法CTRL + B, CTRL + ALT + B 进入接口或者抽象类的实现类
     F3 查找

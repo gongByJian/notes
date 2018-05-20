@@ -129,6 +129,8 @@
 		Ctrl + Shift + ←/→进行逐词选择
 		Ctrl + ↑/↓移动当前显示区域
 		Ctrl + Shift + ↑/↓移动当前行
+		Ctrl + KU 转为大写
+		Ctrl + KL 转为小写
 
 	选择（Selecting）
 

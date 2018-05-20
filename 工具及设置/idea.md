@@ -57,3 +57,10 @@
 ##### SVN添加项目报错（CreateProccess error=2 后面还有乱码） ####
 	Version Control --> Subversion 页面中勾掉“Use commmand line client:”选项后，
 	就可以了，然后会提示你选择svn 1.6、svn 1.7、svn 1.8等版本。（好像只有Idea 13 才有这个问题）
+
+##### 关于Idea中右边的maven projects窗口找不到了如何调出来
+	方法1.你点击一下你idea界面最左下角的那个小框，maven应该从里面找到
+
+	方法2.点击菜单栏View->Tool  Windows->Maven projects 
+
+	方法3.点击菜单栏Help->Find Action(Ctrl+Shift+A),输入Maven projects
