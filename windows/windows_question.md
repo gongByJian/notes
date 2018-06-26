@@ -9,3 +9,6 @@ dos下中文转成unicode命令
 
 unicode转成中文直接
 > System.out.print("unicode码")
+
+软件校验和 --检查是否被篡改
+certutil -hashfile apache-maven-3.5.4-bin.zip  SHA1
