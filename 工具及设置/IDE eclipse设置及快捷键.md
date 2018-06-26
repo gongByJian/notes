@@ -4,6 +4,8 @@
     3. 设置tomcat use installation 配置超时时间 
     4. 设置maven  更新本地仓库配置
 
+##### 设置导入项目编码
+ Windows -> Preference -> workspace -> text file encoding
 
 ###### eclipse设置右键菜单显示
     window -> Customize Perspective -> Shortcuts
@@ -134,6 +136,8 @@ HttpServletRequest request = ServletActionContext.getRequest();
 	2、将该目录下的.settings文件复制到新的工作空间的配置文件目录下：
 	      \.metadata\.plugins\org.eclipse.core.runtime
 
+##### 复制工作空间设置
+    直接把原来工作空间下的.metadata文件夹直接覆盖到新工作空间中
 
 ###### eclipse无法导入Java项目时常遇到的两种情况：
 	1、Some projects cannot be imported because they already exist in the workspace
