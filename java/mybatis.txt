@@ -1,3 +1,14 @@
+实体传入mybatis新增后 
+useGeneratedKeys="true"
+ID 会发生变化  需改为
+useGeneratedKeys="false"
+
+
+批量插入 校验  注意红字部分
+<foreach collection="list" item="item">
+ <if test="null != item.rate">RATE,</if>
+</foreach>
+
 不使用主键自增
 		useGeneratedKeys="false"
 
