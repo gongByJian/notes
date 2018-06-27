@@ -30,19 +30,12 @@
 ##### 资料链接
 
 - [lua](http://www.runoob.com/lua/lua-environment.html)
-
 - [python学习](https://www.w3cschool.cn/python/python-exceptions.html)
 - [加载动画](https://icons8.com/preloaders/en/circular)
-
+- [PDF下载](http://www.java1234.com)
 ##### 工具链接
 
-- [百度云盘高速下载器](https://github.com/high-speed-downloader/high-speed-downloader)
-
 - [脚本插件网站](https://greasyfork.org/zh-CN/scripts/)
-
-- [图片像素化](http://gallery.echartsjs.com/editor.html?c=xS1l7vPPwW)
-
-- [景点全景](http://www.airpano.com/360Degree-VirtualTour.php?3D=Norway-Senja)
 
 ##### 关注博客
 
@@ -62,3 +55,4 @@
 - [JavaScript 算法与数据结构（中文）](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
 - [廖雪峰的GIT](https://github.com/michaelliao)
 - [阮一峰的GIT](https://github.com/ruanyf)
+
