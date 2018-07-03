@@ -112,3 +112,44 @@ Nexus
 
 	打开所有仓库可用
 		repositories->public repositories->configuration 右边移到左边
+
+website
+	https://maven.apache.org/plugins/
+	http://www.mojohaus.org/plugins.html
+	https://maven.apache.org/guides/plugin/guide-java-plugin-development.html
+
+<mirror>  
+	  <id>alimaven</id>  
+	  <name>aliyun maven</name>  
+	  <url>http://maven.aliyun.com/nexus/content/groups/public/</url>  
+	  <mirrorOf>central</mirrorOf>          
+	</mirror> 
+	<mirror>
+		<id>ui</id>
+		<mirrorOf>central</mirrorOf>
+		<name>Human Readable Name for this Mirror.</name>
+		<url>http://uk.maven.org/maven2/</url>
+	</mirror>
+	<mirror>
+        <id>osc</id>
+        <mirrorOf>central</mirrorOf>
+        <url>http://maven.oschina.net/content/groups/public/</url>
+    </mirror>
+    <mirror>
+        <id>osc_thirdparty</id>
+        <mirrorOf>thirdparty</mirrorOf>
+        <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+    </mirror>
+
+exclusions
+  排除包
+
+生命周期 lifecycle/phase/goal
+
+archetype  模版化
+	a)生成一个archetype
+	项目根目录下
+		i.mvn archetype:create-from-project
+		ii.cd /target/generated-sources/archetype
+		iii.mvn install
+	b)从archetype创建项目 mvn archetype:generate -DarchetypeCatalog=local

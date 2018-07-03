@@ -9,3 +9,21 @@ git add README.md
 git commit -m "first commit"
 git remote add origin https://github.com/zhuyizhuo/java-zookeeper.git
 git push -u origin master
+
+
+git fentch
+
+git ac 'add 1.txt'
+
+强制push
+git push -f origin master
+
+git checkout
+
+commit修正  还是一次commit
+git commit --amend 
+
+打tag
+git tag
+
+alias
