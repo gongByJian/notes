@@ -26,4 +26,7 @@ git commit --amend
 打tag
 git tag
 
+git show vx.x.x
+
+
 alias

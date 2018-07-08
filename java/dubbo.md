@@ -71,4 +71,20 @@ ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
 <dubbo:registry address="zookeeper://zookeeper.com:2181" file="d:/dubbo-service"/>
 ```
 
-常用配置及源码解析 下  49分
+
+
+ExtensionLoader
+  301 
+  getExtension
+    createExtension
+      getExtensionClasses
+        loadExtensionClasses
+
+
+  
+  getAdaptiveExtension
+    createAdaptiveExtension
+      getAdaptiveExtensionClass
+        getExtensionClasses
+          loadExtensionClasses
+        createAdaptiveExtensionClass
