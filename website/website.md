@@ -32,6 +32,7 @@
 - [python学习](https://www.w3cschool.cn/python/python-exceptions.html)
 - [加载动画](https://icons8.com/preloaders/en/circular)
 - [PDF下载](http://www.java1234.com)
+- [linux公社资源站](https://linux.linuxidc.com/index.php)
 
 ##### 工具链接
 
