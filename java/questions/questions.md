@@ -61,3 +61,6 @@ Caused by: java.sql.SQLException: Unknown system variable 'query_cache_size'
 	添加：
 	        sqlSession.commit();
 	        sqlSession.close();
+
+自己给自己项目提交的代码，在github的提交记录上怎么不显示我自己的图像呢？
+	本地的username和email需要和git上设置的一致

@@ -44,6 +44,8 @@
 - [阮一峰](http://www.ruanyifeng.com/blog/)
 - [王建硕](http://home.wangjianshuo.com/)
 - [廖雪峰](https://www.liaoxuefeng.com/)
+- [王晓成](http://www.cnblogs.com/abcdwxc/)
+- [积木](https://my.csdn.net/goodboy1881)
 
 ##### GIT仓库
 
