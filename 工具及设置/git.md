@@ -1,4 +1,4 @@
-ssh-keygen -t rsa -C "2361883887@qq.com"
+ssh-keygen -t rsa -C "zhuyizhuo"
 
 
 查看用户
@@ -9,6 +9,9 @@ ssh-keygen -t rsa -C "2361883887@qq.com"
 	git config --global user.name "YOURUSERNAME"
 切换git邮箱： 
 	git config --global user.email "YOUREMAIL"
+
+ssh测试连接
+	ssh -T git@github.com
 
 版本回复
 git reset --hard 1094a(版本号)

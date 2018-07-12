@@ -64,3 +64,12 @@
 	方法2.点击菜单栏View->Tool  Windows->Maven projects 
 
 	方法3.点击菜单栏Help->Find Action(Ctrl+Shift+A),输入Maven projects
+
+	Setting -- Editor -- Code Style -- Java -- Imports
+
+##### 取消 import * 星号导包
+	在【Class count to use import with '*':】后填入500
+
+	在【Names count to use static import with '*':】后填入500
+
+	具体数值自行填写，够大即可
