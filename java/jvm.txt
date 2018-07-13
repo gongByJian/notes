@@ -1,3 +1,7 @@
+设置最大最小内存
+-Xms3M -Xmx3M
+
+
   使用jmap -histo[:live] pid查看堆内存中的对象数目、大小统计直方图，如果带上live则只统计活对象，如下：
   root@ubuntu:/# jmap -histo:live 21711 | more
  

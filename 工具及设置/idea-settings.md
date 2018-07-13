@@ -1,6 +1,6 @@
 ##### 设置编码
     第一步：找到intellij idea安装目录，bin文件夹下面
-	idea64.exe.vmoptions和idea.exe.vmoptions这两个文件，
+    idea64.exe.vmoptions和idea.exe.vmoptions这两个文件，
     分别在这两个文件中添加：-Dfile.encoding=UTF-8
     
     第二步：找到intellij idea的file---settings---Editor---FileEncodings
@@ -17,6 +17,14 @@
     控制台右下角有个设置编码
     
     最后一步：检查下是否原来输出的就是乱码,先输入中文后设置编码会将原中文变为乱码！
+
+##### 设置样式
+
+```
+file->settingg->Appearance&Behavior->Appearance->Theme 
+改为IntelliJ 背景为白色
+默认Darcula 全黑色
+```
 
 ##### 更改代码快捷键
     设置-->editor-->code templates-->设置快捷键
@@ -60,7 +68,11 @@
 
 ##### 关于Idea中右边的maven projects窗口找不到了如何调出来
 	方法1.你点击一下你idea界面最左下角的那个小框，maven应该从里面找到
-
+	
 	方法2.点击菜单栏View->Tool  Windows->Maven projects 
-
+	
 	方法3.点击菜单栏Help->Find Action(Ctrl+Shift+A),输入Maven projects
+
+idea 2018 license server
+	http://idea.congm.in
+	http://xdouble.cn:8888/

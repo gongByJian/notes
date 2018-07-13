@@ -2,6 +2,9 @@
 //发布项目包
 mvn clean:clean deploy -Pnew_test -Dmaven.test.skip=true
 
+
+mvn clean install -P new_test -Dmaven.test.skip=true
+
 安装本地jar到本地仓库 ：
 mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=11.2.0.4 -Dpackaging=jar -Dfile=D:/workspace_mine/ibatis/src/cn/student/project/ibatis/ojdbc14-11.2.0.4.jar
 mvn install:install-file -Dfile=D:\localjar\winzipaes.jar -DgroupId=de.idyl.crypto -DartifactId=winzipaes -Dversion=0.0.1 -Dpackaging=jar  -DgeneratePom=true -DcreateChecksum=true
@@ -143,6 +146,12 @@ website
 
 exclusions
   排除包
+	<exclusions>
+		<exclusion>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+		</exclusion>
+	</exclusions>
 
 生命周期 lifecycle/phase/goal
 

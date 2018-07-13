@@ -4,7 +4,7 @@
     3. 设置tomcat use installation 配置超时时间 
     4. 设置maven  更新本地仓库配置
 
-##### 设置导入项目编码
+###### 设置导入项目编码
  Windows -> Preference -> workspace -> text file encoding
 
 ###### eclipse设置右键菜单显示
@@ -31,6 +31,13 @@
 ###### 修改字体
     window -> preference -> General -> Colors and Fonts -> Basic -> Text Font
 
+###### eclipse插件
+
+```
+mybatis插件
+    help->Eclipse Marketplace
+    搜索Mybatipse
+```
 
 ###### dos下中文转成unicode命令
     native2ascii
@@ -80,33 +87,34 @@ HttpServletRequest request = ServletActionContext.getRequest();
 
 ###### eclipse排除class目录里svn文件
     使用Eclipse编译文件后，classes文件中总是有.svn的文件夹，这些文件没有什么用，
-	而且影响build的速度"Project->Properties->Java Build Path"，右侧的面板中的"Source"选项卡，
-	在Excluded中加入"**/.svn/**"，就可以将所有的svn文件排除在编译路径中了。 
+    而且影响build的速度"Project->Properties->Java Build Path"，右侧的面板中的"Source"选项卡，
+    在Excluded中加入"**/.svn/**"，就可以将所有的svn文件排除在编译路径中了。 
 
 
 ###### myeclipse10插件安装方式
 	一、通过MyEclipse Configuration Center在线安装
-
+	
 	1. 打开MyEclipse10，在菜单栏选择MyEclipse→MyEclipse Configuration Center，即可进入到MyEclipse Configuration Center。
-
+	
 	2. 在MyEclipse Configuration Center界面中点击Software选项卡，在Software界面中点击add site，在弹出框输入信息
 		Name : SVN
 		URL : http://subclipse.tigris.org/update_1.8.x
-
+	
 	3. 等待一段时间，MyEclipse Configuration Center界面右上角会出现 Apply change，点击即可完成安装。
 
  
-	二、解压安装
 
+	二、解压安装
+	
 	下载SVN的zip文件 site-1.8.4.zip，直接把文件下的features目录和plugins目录解压到MyEclipse安装目录下的dropins目录即可(MyEclipse→MyEclipse 10→dropins)，重启即可。
- 
+
 
 	三、创建link文件指向插件位置（推荐）
-
+	
 	1. 同样下载SVN的zip文件 site-1.8.4.zip，把文件下的features目录和plugins目录解压到任意位置
-
+	
 	2. 在MyEclipse安装目录下的dropins目录创建.link文件，如svn.link。
-
+	
 	3. 编辑svn.link文件，输入 path=第一步解压的features文件夹和plugins文件夹所在的目录，如 path=D:/Plugin/SVN。重启即可。
 
 ###### myeclipse启动编码
@@ -116,20 +124,20 @@ HttpServletRequest request = ServletActionContext.getRequest();
 ###### eclipse启动可选工作目录
 	eclipse-3.2.0\configuration\.settings\org.eclipse.ui.ide.prefs
 		修改SHOW_WORKSPACE_SELECTION_DIALOG=false为SHOW_WORKSPACE_SELECTION_DIALOG=true
-		
+
 ###### svn插件安装
     安装subclipse, MyEclipse9.0 SVN插件
     1、从官网下载site-1.6.10.zip文件,网址    是:subclipse.tigris.org,
     2、从中解压出features与 plugins文件夹，复制到E:\MyEclipse\myPlugin\svn里面
-    
+
 ##### Eclipse默认还提供了很多代码模板。打开 
 	Windows->Preferences->Java->Editor->Templates，可以看到所有已定义的代码模板列表。
-	
+
 ###### 自定义代码模板
 	Windows->Preferences->Java->Editor->Templates 点击New...，新建代码模板，创建一个名为“xinneng“的模板。
 	(注意：所有“${}”都是模板变量，如${line_selection}表示当前光标选中的代码片段，${cursor}表示代码生成结束后光标所处的位置，还有很多参数大家可以参考Eclipse提供的帮助文档。)
 	完成后，选中要测试的代码块，使用快捷键Alt+Shift+Z，可以看到菜单中多了一项xinneng
-    
+
 ###### eclipse复制工作空间配置
 
 	1、找到旧的工作空间的配置文件目录：\.metadata\.plugins\org.eclipse.core.runtime
@@ -146,6 +154,6 @@ HttpServletRequest request = ServletActionContext.getRequest();
 	解决：
 	1、修改项目名：右击--- refactor --- rename 或 F2
 	2、打开项目中.project文件 --- 修改<name>projectName</name>
-
+	
 	3、工作空间并不存在同名项目，定是还有地方记录了之前的工程信息，可能是。。。
 	找到:\xxxxxxxx\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects 文件夹，删除同名文件夹。

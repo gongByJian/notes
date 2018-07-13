@@ -2,6 +2,9 @@
 
 #### 官网 http://dubbo.apache.org
 
+2018年7月改版 中文版官网:
+http://dubbo.apache.org/#/?lang=zh-cn
+
 dubbo
 
 - ##### 多版本支持
