@@ -1,10 +1,10 @@
-##### 查看用户
 
+##### 查看用户
 ```
 	git config user.name
 ```
 
-查看邮箱
+##### 查看邮箱
 
 ```
 	git config user.email
@@ -31,6 +31,11 @@ cd ~/.ssh
 	ssh-keygen -t rsa -C "youremail"
 	来生成密钥
 会提示生成秘钥的文件名及设置密码和确认密码  如果都不需设置 则直接三次回车
+```
+##### ssh测试连接
+
+```
+	ssh -T git@github.com
 ```
 
 ##### clone远程仓库

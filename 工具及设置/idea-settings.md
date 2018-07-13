@@ -73,6 +73,16 @@ file->settingg->Appearance&Behavior->Appearance->Theme
 	
 	方法3.点击菜单栏Help->Find Action(Ctrl+Shift+A),输入Maven projects
 
-idea 2018 license server
-	http://idea.congm.in
-	http://xdouble.cn:8888/
+##### idea 2018 license server
+
+```
+http://idea.congm.in
+http://xdouble.cn:8888/
+```
+
+##### 取消 import * 星号导包
+	Setting -- Editor -- Code Style -- Java -- Imports
+	在【Class count to use import with '*':】后填入500
+	
+	在【Names count to use static import with '*':】后填入500
+	具体数值自行填写，够大即可
