@@ -24,6 +24,16 @@ useGeneratedKeys="true"
 ID 会发生变化  需改为
 useGeneratedKeys="false"
 
+oracle分页查询
+	<select id="couponStatistics" resultType="com.baidu.MFCouponVO" parameterType="com.baidu.QueryCouponRequest">
+		SELECT * FROM (
+			SELECT O.*,ROWNUM RN FROM (
+				<include refid="couponStatisticsSql" />
+		<![CDATA[
+			 ) O WHERE ROWNUM <= #{endNo}
+		) T WHERE T.RN >= #{startNo}
+		]]>
+	</select>
 
 批量插入 校验
 <foreach collection="list" item="item">
