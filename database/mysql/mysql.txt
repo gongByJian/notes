@@ -206,3 +206,8 @@ root不能远程登录
 
 两表插入
 	insert into ttt (num) select t2.num from ttt t2 where t2.id = 2
+
+查询mysql运行时参数
+    show variables;
+    show variables like '%packet%';
+    show variables like '%net_buffer%';

@@ -1,3 +1,25 @@
+
+1. mybatis generator
+
+2. idea安装插件
+
+3. 
+
+
+mybatis 实用篇 2.2  start  28:00
+
+
+2018年7月18日23:08:47
+字典 
+dict.cn
+
+
+逻辑分页 源码:
+	DefaultResultSetHandler.handleRowValuesForSimpleResultMap
+	相当于内存分页,不可取
+
+
+	
 mybatis的一级缓存和二级缓存
 	一级缓存默认开启
 	同一个sqlSession中两次查询  第二次查询会命中一级缓存
@@ -17,6 +39,17 @@ mybatis的一级缓存和二级缓存
 	a.脏数据
 	b.namespace中做更新 则该namespace下的缓存全部失效
 
+
+分页
+	逻辑分页
+	物理分页
+
+如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：
+
+在 properties 元素体内指定的属性首先被读取。
+然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。
+最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。
+因此，通过方法参数传递的属性具有最高优先级，resource/url 属性中指定的配置文件次之，最低优先级的是 properties 属性中指定的属性。
 
 
 实体传入mybatis新增后 
