@@ -1,4 +1,6 @@
-##### 如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：
+#### 属性配置优先级
+
+如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：
 
 * `在 properties 元素体内指定的属性首先被读取。`
 
@@ -10,7 +12,11 @@
   因此，通过方法参数传递的属性具有最高优先级，resource/url 属性中指定的配置文件次之，最低优先级的是 properties 属性中指定的属性。
   ```
 
-##### 指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean，比如:
+#### 别名
+
+##### 自动注册别名
+
+指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean，比如:
 
 ```
 <typeAliases>
@@ -18,7 +24,7 @@
 </typeAliases>
 ```
 
-###### 每一个在包 `domain.blog` 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 比如 `domain.blog.Author` 的别名为 `author`；若有注解，则别名为其注解值。看下面的例子：
+每一个在包 `domain.blog` 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 比如 `domain.blog.Author` 的别名为 `author`；若有注解，则别名为其注解值。看下面的例子：
 
 ```
 @Alias("author")
@@ -27,7 +33,9 @@ public class Author {
 }
 ```
 
-##### 常见的 Java 类型内建的相应的类型别名。
+##### mybatis内建别名
+
+常见的 Java 类型内建的相应的类型别名。
 
 `它们都是大小写不敏感的，需要注意的是由基本类型名称重复导致的特殊处理。`
 
@@ -61,7 +69,7 @@ public class Author {
 | collection | Collection |
 | iterator   | Iterator   |
 
-### typeHandlers
+#### typeHandlers
 
 无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时， 都会用类型处理器将获取的值以合适的方式转换成 Java 类型。下表描述了一些默认的类型处理器。
 
@@ -105,3 +113,23 @@ public class Author {
 | `MonthTypeHandler`           | `java.time.Month`               | `INTEGER`                                                    |
 | `YearMonthTypeHandler`       | `java.time.YearMonth`           | `VARCHAR` or `LONGVARCHAR`                                   |
 | `JapaneseDateTypeHandler`    | `java.time.chrono.JapaneseDate` | `DATE`                                                       |
+
+#### 枚举
+
+```java
+事务隔离级别Java 枚举包装器 TransactionIsolationLevel
+执行器类型 ExecutorType
+```
+
+#### 本地缓存
+
+```txt
+Mybatis 使用到了两种缓存：本地缓存（local cache）和二级缓存（second level cache）。
+
+每当一个新 session 被创建，MyBatis 就会创建一个与之相关联的本地缓存。任何在 session 执行过的查询语句本身都会被保存在本地缓存中，那么，相同的查询语句和相同的参数所产生的更改就不会二度影响数据库了。本地缓存会被增删改、提交事务、关闭事务以及关闭 session 所清空。
+
+默认情况下，本地缓存数据可在整个 session 的周期内使用，这一缓存需要被用来解决循环引用错误和加快重复嵌套查询的速度，所以它可以不被禁用掉，但是你可以设置 localCacheScope=STATEMENT 表示缓存仅在语句执行时有效。
+```
+
+
+

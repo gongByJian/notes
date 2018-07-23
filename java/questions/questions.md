@@ -1,8 +1,17 @@
-dubbo拉不到包
-	确定依赖包 及 父pom是否发布
+#### dobbo
 
-错误:
-Exception in thread "main" org.apache.ibatis.exceptions.PersistenceException: 
+##### dubbo拉不到包
+
+```
+确定依赖包 及 父pom是否发布
+```
+
+#### mysql
+
+##### mysql错误: PersistenceException 
+
+```java
+Exception in thread "main" org.apache.ibatis.exceptions.PersistenceException:
 ### Error querying database.  Cause: java.sql.SQLException: Unknown system variable 'query_cache_size'
 ### The error may exist in xml/TestMapper.xml
 ### The error may involve com.zhuyizhuo.java.mybatis.mapper.UserMapper.selectByExample
@@ -47,21 +56,44 @@ Caused by: java.sql.SQLException: Unknown system variable 'query_cache_size'
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
 	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+```
 
-原因是mysql-connector-java的版本还是6.0.6，需要升级版本到8.0.11 ，这个报错就不存在了
+###### 原因: mysql-connector-java的版本还是6.0.6，需要升级版本到8.0.11 ，这个报错就不存在了
+
+```xml
 	<dependency>
 	<groupId>mysql</groupId>
 	<artifactId>mysql-connector-java</artifactId>
 	<version>8.0.11</version>
 	</dependency>
+```
 
-用mybatis在java后台insert数据，能运行但数据库没有添加成功
-	是因为没有提交导致，正确代码如下：
+#### mybatis
 
-	添加：
-	        sqlSession.commit();
-	        sqlSession.close();
+##### 用mybatis在java后台insert数据，能运行但数据库没有添加成功是因为没有提交导致，正确代码如下：
 
+```xml
+添加：
+        sqlSession.commit();
+        sqlSession.close();
+```
 
+##### 查询mybatis时间比数据库时间多了8个小时
+
+```xml
+jdbcUrl=jdbc:mysql://localhost:8080/hentai?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+
+链接数据库时serverTimezone=UTC这个参数出的问题
+
+只要改成serverTimezone=Asia/Shanghai就OK了！
+```
+
+#### github
+
+##### 提交代码不计入贡献,多用户问题：
+
+```
 自己给自己项目提交的代码，在github的提交记录上怎么不显示我自己的图像呢？
 	本地的username和email需要和git上设置的一致
+```
+

@@ -85,7 +85,7 @@ git reset --hard 1094a(版本号)
 
 ```
 匹配远程仓库
-	git fentch
+	git fetch
 
 alias自定义命令
 	git ac 'add 1.txt'
