@@ -18,6 +18,8 @@ pl/sql客户端设置自动生成
 	设置保存登录历史
 	工具--首选项--oracle--登录历史--勾选存储历史 带口令存储
 
+  设置大小写快捷键
+  在工具栏，Tools->Preferences，在User Interface选项->Key Configuraction，然后在列表中的Item找到Edit/Session/Uppercase或Edit/Session/Lowercase，选中，按上你键盘的键来设置快捷键。 
 
 1、解决 scott 被锁的问题
    sqlplus /nolog

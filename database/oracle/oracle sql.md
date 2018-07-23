@@ -178,3 +178,13 @@ MERGE INTO 表2
 ```
 SELECT * FROM MICROFINANCE.Mf_Borrowing_Order t WHERE t.rate like '%\%%' escape '\' ;
 ```
+
+根据A表跟新T表  适用于数据一对一的情况
+ UPDATE T
+    SET
+     T.PENALTY  =  (SELECT A.PENALTY FROM B A  WHERE  A.T_ID = T.ID),
+     T.FEE = (SELECT A.FEE FROM B A  WHERE A.T_ID = T.ID),
+     T.DAYS =  (SELECT A.DAYS FROM B A  WHERE A.T_ID = T.ID),
+     T.STATUS = '1'
+    WHERE
+      EXISTS ( SELECT 1 FROM A WHERE  A.T_ID = T.ID);
