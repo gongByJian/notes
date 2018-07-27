@@ -32,6 +32,29 @@ cd ~/.ssh
 	来生成密钥
 会提示生成秘钥的文件名及设置密码和确认密码  如果都不需设置 则直接三次回车
 ```
+
+##### 多用户配置
+
+> 在.ssh目录新建config文件,内容如下：
+>
+> id_rsa_github为生成秘钥的时候指定的文件名
+
+```
+# 配置github.com
+Host github.com
+    HostName github.com
+    IdentityFile C:\Users\admin\.ssh\id_rsa_github
+    PreferredAuthentications publickey
+    User yourname
+    
+# 配置 mayun.com
+Host mayun.com
+    HostName mayun.com
+    IdentityFile C:\Users\admin\.ssh\id_rsa_mayun
+    PreferredAuthentications publickey
+    User yourname
+```
+
 ##### ssh测试连接
 
 ```
@@ -110,4 +133,5 @@ commit修正  还是一次commit
 先commit到本地仓库  然后pull远程仓库
 最后合并并提交
 ```
+
 

@@ -19,7 +19,7 @@
     ALT + ENTER  导包,自动修正
     CTRL + H 查看类的继承关系。 
     CTRL + Q 显示注释文档（跟eclipse鼠标放到类、方法、字段显示的内容一样）
-    CTRL + W 选中代码,连续按会有其他效果
+    CTRL + W 选中代码,连续按会有其他效果--> 可改为关闭当前窗口 
     CTRL + U 查看当前类的父类以及接口,
     CTRL + ALT + U 查看类UML图 简单版
     CTRL + ALT + SHIFT + U 查看类UML图
@@ -34,6 +34,7 @@
     	Settings->Keymap->mainmenu -> code ->Completion->basic,
     	右键添加自己的快捷键)
     	-> 设置-->keymap-->搜basic设置成ALT+/
+    Ctrl+Shift+F12 窗口最大化
 
 ##### Idea 与 Eclipse 快捷键的区别
 

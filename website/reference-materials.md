@@ -91,6 +91,7 @@ https://www.cnblogs.com/chenyangyao/p/5269622.html
 - [程序员的书籍资源](https://zhuanlan.zhihu.com/p/23857699)
 - [给编程生涯充电的 10 本书](http://gad.qq.com/article/detail/35122)
 - [38个学习新技能的最佳网站](http://www.devstore.cn/essay/essayInfo/5904.html)
+- [java之音](https://www.javazhiyin.com/category/javacore)
 
 ###### 题库
 
