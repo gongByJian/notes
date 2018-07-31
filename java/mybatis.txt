@@ -1,17 +1,13 @@
+Reflector
+CacheKey
+MapperProxy
+	非标准的动态代理
 
 1. mybatis generator
 
 2. idea安装插件
 
 3. 
-
-
-mybatis 实用篇 2.2  start  28:00
-
-
-2018年7月18日23:08:47
-字典 
-dict.cn
 
 
 逻辑分页 源码:
@@ -263,3 +259,10 @@ foreach union all
 	log4j.logger.java.sql.Connection=debug 
 	log4j.logger.java.sql.Statement=debug 
 	log4j.logger.java.sql.PreparedStatement=debug
+
+resultMap:
+  <resultMap id="SimpleResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+    </resultMap>

@@ -132,4 +132,19 @@ Mybatis 使用到了两种缓存：本地缓存（local cache）和二级缓存�
 ```
 
 
+#### mybatis-spring
+
+```
+/** 注解形式 注册bean */
+public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+   ... 
+}
+public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
+	...
+}
+//xml形式注册bean
+public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProcessor, InitializingBean, ApplicationContextAware, BeanNameAware {
+    ...
+}
+```
 
