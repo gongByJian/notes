@@ -1,5 +1,5 @@
 ## notes
-[代码规范](https://github.com/zhuyizhuo/notes/tree/master/convention)
+[版本号命名规范](https://github.com/zhuyizhuo/notes/tree/master/convention)
 
 [数据库笔记](https://github.com/zhuyizhuo/notes/tree/master/database)
 

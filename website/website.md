@@ -56,4 +56,8 @@
 - [apache](https://github.com/apache)
 - [JavaScript 算法与数据结构（中文）](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
 
+##### 码云
+https://gitee.com/javahongxi/whatsmars
 
+##### 开涛
+http://jinnianshilongnian.iteye.com/

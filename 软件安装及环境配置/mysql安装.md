@@ -95,6 +95,7 @@ mysqld --initialize-insecure --user=mysql
 ###### Client does not support authentication protocol requested by server; consider upgrading MySQL client 
 
 不支持无密码连接,需用命令行进入mysql设置密码如下:
+修改密码
 
 ```
 mysql> alter user 'root'@'localhost' identified with mysql_native_password by '123456';
