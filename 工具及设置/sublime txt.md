@@ -1,3 +1,5 @@
+[TOC]
+
 ##### 1.安装
 
 ​	注意在安装时勾选Add to explorer context menu，这样在右键单击文件时就可以直接使用Sublime Text打开。

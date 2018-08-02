@@ -1,8 +1,9 @@
-内置函数
+ORACLE内置函数目录:
+[TOC]
 
 #### 1.ASCII 返回与指定的字符对应的十进制数;
         SQL> select ascii('A') A,ascii('a') a,ascii('0') zero,ascii(' ') space from dual;
-
+    
         A         A      ZERO     SPACE
         --------- --------- --------- ---------
         65        97        48        32
@@ -10,21 +11,21 @@
 
 #### 2.CHR 给出整数,返回对应的字符;
     SQL> select chr(54740) zhao,chr(65) chr65 from dual;
-
+    
     ZH C
     -- -
     赵 A
 
 #### 3.CONCAT 连接两个字符串;
     SQL> select concat('010-','88888888')||'转23'  小张电话 from dual;
-
+    
     小张电话
     ----------------
     010-88888888转23
 
 #### 4.INITCAP 返回字符串并将字符串的第一个字母变为大写;
     SQL> select initcap('smith') upp from dual;
-
+    
     UPP
     -----
     Smith
@@ -35,28 +36,28 @@
     I     搜索的开始位置,默认为1
     J     出现的位置,默认为1
     SQL> select instr('oracle traning','ra',1,2) instring from dual;
-
+    
     INSTRING
     ---------
     9
 
 #### 6.LENGTH 返回字符串的长度;
     SQL> select name,length(name),addr,length(addr),sal,length(to_char(sal)) from .nchar_tst;
-
+    
     NAME   LENGTH(NAME) ADDR             LENGTH(ADDR)       SAL LENGTH(TO_CHAR(SAL))
     ------ ------------ ---------------- ------------ --------- --------------------
     小张            3 北京市海锭区                6 #### 9999.99                    7
 
 #### 7.LOWER 返回字符串,并将所有的字符小写
     SQL> select lower('AaBbCcDd')AaBbCcDd from dual;
-
+    
     AABBCCDD
     --------
     aabbccdd
 
 #### 8.UPPER 返回字符串,并将所有的字符大写
     SQL> select upper('AaBbCcDd') upper from dual;
-
+    
     UPPER
     --------
     AABBCCDD
@@ -65,7 +66,7 @@
     RPAD  在列的右边粘贴字符
     LPAD  在列的左边粘贴字符
     SQL> select lpad(rpad('gao',10,'*'),17,'*')from dual;
-
+    
     LPAD(RPAD('GAO',1
     -----------------
     *******gao*******
@@ -75,7 +76,7 @@
     LTRIM  删除左边出现的字符串
     RTRIM  删除右边出现的字符串
     SQL> select ltrim(rtrim('   gao qian jing   ',' '),' ') from dual;
-
+    
     LTRIM(RTRIM('
     -------------
     gao qian jing
@@ -83,10 +84,10 @@
 #### 11.SUBSTR(string,start,count)
     取子字符串,从start开始,取count个
     SQL> select substr('13088888888',3,8) from dual;
-
+    
     --------
     08888888
-
+    
     1 substr("ABCDEFG", 0); //返回：ABCDEFG，截取所有字符 
     2 substr("ABCDEFG", 2); //返回：CDEFG，截取从C开始之后所有字符 
     3 substr("ABCDEFG", 0, 3); //返回：ABC，截取从A开始3个字符 
@@ -99,7 +100,7 @@
     s1       被替换的字符串
     s2       要替换的字符串
     SQL> select replace('he love you','he','i') from dual;
-
+    
     REPLACE('HELOVEYOU','HE','I')
     ------------------------------
     i love you
@@ -109,9 +110,9 @@
     SQL> insert into table1 values('weather');
     SQL> insert into table1 values('wether');
     SQL> insert into table1 values('gao');
-
+    
     SQL> select xm from table1 where soundex(xm)=soundex('weather');
-
+    
     XM
     --------
     weather
@@ -124,91 +125,91 @@
 
 #### 15.ABS 返回指定值的绝对值
     SQL> select abs(100),abs(-100) from dual;
-
+    
     ABS(100) ABS(-100)
     --------- ---------
     100       100
 
 #### 16.ACOS 给出反余弦的值
     SQL> select acos(-1) from dual;
-
+    
     ACOS(-1)
     ---------
     3.1415927
 
 #### 17.ASIN 给出反正弦的值
     SQL> select asin(0.5) from dual;
-
+    
     ASIN(0.5)
     ---------
     .52359878
 
 #### 18.ATAN 返回一个数字的反正切值
     SQL> select atan(1) from dual;
-
+    
     ATAN(1)
     ---------
     .78539816
 
 #### 19.CEIL 返回大于或等于给出数字的最小整数
     SQL> select ceil(3.1415927) from dual;
-
+    
     CEIL(3.1415927)
     ---------------
     4
 
 #### 20.COS 返回一个给定数字的余弦
     SQL> select cos(-3.1415927) from dual;
-
+    
     COS(-3.1415927)
     ---------------
     -1
 
 #### 21.COSH 返回一个数字反余弦值
     SQL> select cosh(20) from dual;
-
+    
     COSH(20)
     ---------
     242582598
 
 #### 22.EXP 返回一个数字e的n次方根
     SQL> select exp(2),exp(1) from dual;
-
+    
     EXP(2)    EXP(1)
     --------- ---------
     7.3890561 2.7182818
 
 #### 23.FLOOR 对给定的数字取整数
     SQL> select floor(2345.67) from dual;
-
+    
     FLOOR(2345.67)
     --------------
     2345
 
 #### 24.LN 返回一个数字的对数值
     SQL> select ln(1),ln(2),ln(2.7182818) from dual;
-
+    
     LN(1)     LN(2) LN(2.7182818)
     --------- --------- -------------
     0 .69314718     .99999999
 
 #### 25.LOG(n1,n2) 返回一个以n1为底n2的对数
     SQL> select log(2,1),log(2,4) from dual;
-
+    
     LOG(2,1)  LOG(2,4)
     --------- ---------
     0         2
 
 #### 26.MOD(n1,n2) 返回一个n1除以n2的余数
     SQL> select mod(10,3),mod(3,3),mod(2,3) from dual;
-
+    
     MOD(10,3)  MOD(3,3)  MOD(2,3)
     --------- --------- ---------
     1         0         2
 
 #### 27.POWER 返回n1的n2次方根
     SQL> select power(2,10),power(3,3) from dual;
-
+    
     POWER(2,10) POWER(3,3)
     ----------- ----------
     1024         27
@@ -216,21 +217,21 @@
 #### 28.ROUND和TRUNC
     按照指定的精度进行舍入
     SQL> select round(55.5),round(-55.4),trunc(55.5),trunc(-55.5) from dual;
-
+    
     ROUND(55.5) ROUND(-55.4) TRUNC(55.5) TRUNC(-55.5)
     ----------- ------------ ----------- ------------
     56          -55          55          -55
 
 #### 29.SIGN 取数字n的符号,大于0返回1,小于0返回-1,等于0返回0
     SQL> select sign(123),sign(-100),sign(0) from dual;
-
+    
     SIGN(123) SIGN(-100)   SIGN(0)
     --------- ---------- ---------
     1         -1         0
 
 #### 30.SIN 返回一个数字的正弦值
     SQL> select sin(1.57079) from dual;
-
+    
     SIN(1.57079)
     ------------
     1
@@ -245,14 +246,14 @@
 
 #### 32.SQRT 返回数字n的根
     SQL> select sqrt(64),sqrt(10) from dual;
-
+    
     SQRT(64)  SQRT(10)
     --------- ---------
     8 3.1622777
 
 #### 33.TAN 返回数字的正切值
     SQL> select tan(20),tan(10) from dual;
-
+    
     TAN(20)   TAN(10)
     --------- ---------
     2.2371609 .64836083
@@ -260,7 +261,7 @@
 #### 34.TANH
     返回数字n的双曲正切值
     SQL> select tanh(20),tan(20) from dual;
-
+    
     TANH(20)   TAN(20)
     --------- ---------
     1 2.2371609
@@ -268,7 +269,7 @@
 #### 35.TRUNC
     按照指定的精度截取一个数
     SQL> select trunc(124.1666,-2) trunc1,trunc(124.16666,2) from dual;
-
+    
     TRUNC1 TRUNC(124.16666,2)
     --------- ------------------
     100             124.16
@@ -276,12 +277,12 @@
 #### 36.ADD_MONTHS
     增加或减去月份
     SQL> select to_char(add_months(to_date('199912','yyyymm'),2),'yyyymm') from dual;
-
+    
     TO_CHA
     ------
     200002
     SQL> select to_char(add_months(to_date('199912','yyyymm'),-2),'yyyymm') from dual;
-
+    
     TO_CHA
     ------
     199910
@@ -289,12 +290,12 @@
 #### 37.LAST_DAY
     返回日期的最后一天
     SQL> select to_char(sysdate,'yyyy.mm.dd'),to_char((sysdate)+1,'yyyy.mm.dd') from dual;
-
+    
     TO_CHAR(SY TO_CHAR((S
     ---------- ----------
     2004.05.09 2004.05.10
     SQL> select last_day(sysdate) from dual;
-
+    
     LAST_DAY(S
     ----------
     31-5月 -04
@@ -302,12 +303,12 @@
 #### 38.MONTHS_BETWEEN(date2,date1)
     给出date2-date1的月份
     SQL> select months_between('19-12月-1999','19-3月-1999') mon_between from dual;
-
+    
     MON_BETWEEN
     -----------
     9
     SQL>selectmonths_between(to_date('2000.05.20','yyyy.mm.dd'),to_date('2005.05.20','yyyy.dd')) mon_betw from dual;
-
+    
     MON_BETW
     ---------
     -60
@@ -316,7 +317,7 @@
     给出在this时区=other时区的日期和时间
     SQL> select to_char(sysdate,'yyyy.mm.dd hh24:mi:ss') bj_time,to_char(new_time
     2  (sysdate,'PDT','GMT'),'yyyy.mm.dd hh24:mi:ss') los_angles from dual;
-
+    
     BJ_TIME             LOS_ANGLES
     ------------------- -------------------
     2004.05.09 11:05:32 2004.05.09 18:05:32
@@ -324,28 +325,28 @@
 #### 40.NEXT_DAY(date,'day')
     给出日期date和星期x之后计算下一个星期的日期
     SQL> select next_day('18-5月-2001','星期五') next_day from dual;
-
+    
     NEXT_DAY
     ----------
     25-5月 -01
 
 #### 41.SYSDATE 用来得到系统的当前日期
     SQL> select to_char(sysdate,'dd-mm-yyyy day') from dual;
-
+    
     TO_CHAR(SYSDATE,'
     -----------------
     09-05-2004 星期日
     trunc(date,fmt)按照给出的要求将日期截断,如果fmt='mi'表示保留分,截断秒
     SQL> select to_char(trunc(sysdate,'hh'),'yyyy.mm.dd hh24:mi:ss') hh,
     2  to_char(trunc(sysdate,'mi'),'yyyy.mm.dd hh24:mi:ss') hhmm from dual;
-
+    
     HH                  HHMM
     ------------------- -------------------
     2004.05.09 11:00:00 2004.05.09 11:17:00
 
 #### 42.CHARTOROWID 将字符数据类型转换为ROWID类型
     SQL> select rowid,rowidtochar(rowid),ename from scott.emp;
-
+    
     ROWID              ROWIDTOCHAR(ROWID) ENAME
     ------------------ ------------------ ----------
     AAAAfKAACAAAAEqAAA AAAAfKAACAAAAEqAAA SMITH
@@ -356,7 +357,7 @@
 #### 43.CONVERT(c,dset,sset)
     将源字符串 sset从一个语言字符集转换到另一个目的dset字符集
     SQL> select convert('strutz','we8hp','f7dec') "conversion" from dual;
-
+    
     conver
     ------
     strutz
@@ -369,7 +370,7 @@
 
 #### 47.TO_CHAR(date,'format')
     SQL> select to_char(sysdate,'yyyy/mm/dd hh24:mi:ss') from dual;
-
+    
     TO_CHAR(SYSDATE,'YY
     -------------------
     2004/05/09 21:14:41
@@ -378,7 +379,7 @@
 
 #### 49.TO_MULTI_BYTE  将字符串中的单字节字符转化为多字节字符
     SQL>  select to_multi_byte('高') from dual;
-
+    
     TO
     --
     高
@@ -386,7 +387,7 @@
 #### 50.TO_NUMBER
     将给出的字符转换为数字
     SQL> select to_number('1999') year from dual;
-
+    
     YEAR
     ---------
     1999
@@ -404,7 +405,7 @@
     7  7,'delete',
     8  8,'drop',
     9  'other') cmd  from v$session where type!='background';
-
+    
     SID   SERIAL# USERNAME                       CMD
     --------- --------- ------------------------------ ------
     1         1                                none
@@ -424,7 +425,7 @@
     SQL> col dump_string for a50
     SQL> set lin 200
     SQL> select global_name,dump(global_name,1017,8,5) dump_string from global_name;
-
+    
     GLOBAL_NAME                    DUMP_STRING
     ------------------------------ --------------------------------------------------
     ORACLE.WORLD                   Typ=1 Len=12 CharacterSet=ZHS16GBK: W,O,R,L,D
@@ -435,12 +436,12 @@
 #### 55.GREATEST
     返回一组表达式中的最大值,即比较字符的编码大小.
     SQL> select greatest('AA','AB','AC') from dual;
-
+    
     GR
     --
     AC
     SQL> select greatest('啊','安','天') from dual;
-
+    
     GR
     --
     天
@@ -448,7 +449,7 @@
 #### 56.LEAST
     返回一组表达式中的最小值
     SQL> select least('啊','安','天') from dual;
-
+    
     LE
     --
     啊
@@ -458,7 +459,7 @@
     SQL> show user
     USER 为"GAO"
     SQL> select username,user_id from dba_users where user_id=uid;
-
+    
     USERNAME                         USER_ID
     ------------------------------ ---------
     GAO                                   25
@@ -466,7 +467,7 @@
 #### 58.USER
     返回当前用户的名字
     SQL> select user from  dual;
-
+    
     USER
     ------------------------------
     GAO
@@ -476,61 +477,61 @@
     ENTRYID,SESSIONID,TERMINAL,ISDBA,LABLE,LANGUAGE,CLIENT_INFO,LANG,VSIZE
     ISDBA  查看当前用户是否是DBA如果是则返回true
     SQL> select userenv('isdba') from dual;
-
+    
     USEREN
     ------
     FALSE
     SQL> select userenv('isdba') from dual;
-
+    
     USEREN
     ------
     TRUE
     SESSION
     返回会话标志
     SQL> select userenv('sessionid') from dual;
-
+    
     USERENV('SESSIONID')
     --------------------
     152
     ENTRYID
     返回会话人口标志
     SQL> select userenv('entryid') from dual;
-
+    
     USERENV('ENTRYID')
     ------------------
     0
     INSTANCE
     返回当前INSTANCE的标志
     SQL> select userenv('instance') from dual;
-
+    
     USERENV('INSTANCE')
     -------------------
     1
     LANGUAGE
     返回当前环境变量
     SQL> select userenv('language') from dual;
-
+    
     USERENV('LANGUAGE')
     ----------------------------------------------------
     SIMPLIFIED CHINESE_CHINA.ZHS16GBK
     LANG
     返回当前环境的语言的缩写
     SQL> select userenv('lang') from dual;
-
+    
     USERENV('LANG')
     ----------------------------------------------------
     ZHS
     TERMINAL
     返回用户的终端或机器的标志
     SQL> select userenv('terminal') from dual;
-
+    
     USERENV('TERMINA
     ----------------
     GAO
     VSIZE(X)
     返回X的大小(字节)数
     SQL> select vsize(user),user from dual;
-
+    
     VSIZE(USER) USER
     ----------- ------------------------------
     6 SYSTEM
@@ -543,15 +544,15 @@
     SQLWKS>  insert into table3 values('gao',1111.11);
     SQLWKS>  insert into table3 values('zhu',5555.55);
     SQLWKS> commit;
-
+    
     SQL> select avg(distinct sal) from gao.table3;
-
+    
     AVG(DISTINCTSAL)
     ----------------
     3333.33
-
+    
     SQL> select avg(all sal) from gao.table3;
-
+    
     AVG(ALLSAL)
     -----------
     2592.59
@@ -568,7 +569,7 @@
 #### 62.MIN(DISTINCT|ALL)
     求最小值,ALL表示对所有的值求最小值,DISTINCT表示对不同的值求最小值,相同的只取一次
     SQL> select min(all sal) from gao.table3;
-
+    
     MIN(ALLSAL)
     -----------
     1111.11
@@ -576,13 +577,13 @@
 #### 63.STDDEV(distinct|all)
     求标准差,ALL表示对所有的值求标准差,DISTINCT表示只对不同的值求标准差
     SQL> select stddev(sal) from scott.emp;
-
+    
     STDDEV(SAL)
     -----------
     1182.5032
-
+    
     SQL> select stddev(distinct sal) from scott.emp;
-
+    
     STDDEV(DISTINCTSAL)
     -------------------
     1229.951
@@ -590,14 +591,14 @@
 #### 64.VARIANCE(DISTINCT|ALL) 求协方差
 
     SQL> select variance(sal) from scott.emp;
-
+    
     VARIANCE(SAL)
     -------------
     1398313.9
 
 #### 65.GROUP BY 主要用来对一组数进行统计
     SQL> select deptno,count(*),sum(sal) from scott.emp group by deptno;
-
+    
     DEPTNO  COUNT(*)  SUM(SAL)
     --------- --------- ---------
     10         3      8750
@@ -606,13 +607,13 @@
 
 #### 66.HAVING  对分组统计再加限制条件
     SQL> select deptno,count(*),sum(sal) from scott.emp group by deptno having nt(*)>=5;
-
+    
     DEPTNO  COUNT(*)  SUM(SAL)
     --------- --------- ---------
     20         5     10875
     30         6      9400
     SQL> select deptno,count(*),sum(sal) from scott.emp having count(*)>=5 group by tno ;
-
+    
     DEPTNO  COUNT(*)  SUM(SAL)
     --------- --------- ---------
     20         5     10875
@@ -620,7 +621,7 @@
 
 #### 67.ORDER BY  用于对查询到的结果进行排序输出
     SQL> select deptno,ename,sal from scott.emp order by deptno,sal desc;
-
+    
     DEPTNO ENAME            SAL
     --------- ---------- ---------
     10 KING            5000

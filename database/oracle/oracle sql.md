@@ -1,4 +1,7 @@
+[TOC]
+
 ##### 查询锁表
+
 ```sql
 SELECT A.OWNER, --OBJECT所属用户
        A.OBJECT_NAME, --OBJECT名称（表名）
@@ -212,9 +215,3 @@ NOT IN 问题
   生效:
   	SELECT * FROM t WHERE t.mobile not in  (SELECT U.MOBILE FROM U WHERE u.mobile = t.mobile);
 ```
-
-
-
-
-
-​      
