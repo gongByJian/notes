@@ -100,3 +100,32 @@ https://www.cnblogs.com/chenyangyao/p/5269622.html
 - [Java 进阶面试问题列表](https://blog.csdn.net/sinat_35512245/article/details/54582210)
 - [Java Top 100 热门问答 (Stackoverflow)](https://juejin.im/entry/5937585d0ce46300574154cb)
 - [Java工程师成神之路](http://www.hollischuang.com/archives/489)
+
+#####  
+
+##### 资料链接
+
+- [lua](http://www.runoob.com/lua/lua-environment.html)
+- [python学习](https://www.w3cschool.cn/python/python-exceptions.html)
+- [加载动画](https://icons8.com/preloaders/en/circular)
+- [PDF下载](http://www.java1234.com)
+- [linux公社资源站](https://linux.linuxidc.com/index.php)
+
+##### 工具链接
+
+- [脚本插件网站](https://greasyfork.org/zh-CN/scripts/)
+- [云盘搜索](https://www.57fx.com/search/)
+
+##### 关注博客
+
+- [阮一峰](http://www.ruanyifeng.com/blog/)
+- [王建硕](http://home.wangjianshuo.com/)
+- [廖雪峰](https://www.liaoxuefeng.com/)
+- [王晓成](http://www.cnblogs.com/abcdwxc/)
+- [积木](https://my.csdn.net/goodboy1881)
+
+##### 码云
+
+ - [whatsmars](https://gitee.com/javahongxi/whatsmars)
+
+##### [开涛](http://jinnianshilongnian.iteye.com/)

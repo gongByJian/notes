@@ -26,27 +26,6 @@
   
 - [中国互联网络信息中心（CNNIC）](http://www.cnnic.net.cn/) 
 
-##### 资料链接
-
-- [lua](http://www.runoob.com/lua/lua-environment.html)
-- [python学习](https://www.w3cschool.cn/python/python-exceptions.html)
-- [加载动画](https://icons8.com/preloaders/en/circular)
-- [PDF下载](http://www.java1234.com)
-- [linux公社资源站](https://linux.linuxidc.com/index.php)
-
-##### 工具链接
-
-- [脚本插件网站](https://greasyfork.org/zh-CN/scripts/)
-- [云盘搜索](https://www.57fx.com/search/)
-
-##### 关注博客
-
-- [阮一峰](http://www.ruanyifeng.com/blog/)
-- [王建硕](http://home.wangjianshuo.com/)
-- [廖雪峰](https://www.liaoxuefeng.com/)
-- [王晓成](http://www.cnblogs.com/abcdwxc/)
-- [积木](https://my.csdn.net/goodboy1881)
-
 ##### GIT仓库
 
 - [alibaba](https://github.com/alibaba)
@@ -55,9 +34,3 @@
 - [lua](https://github.com/rjpcomputing/luaforwindows/releases)
 - [apache](https://github.com/apache)
 - [JavaScript 算法与数据结构（中文）](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
-
-##### 码云
-https://gitee.com/javahongxi/whatsmars
-
-##### 开涛
-http://jinnianshilongnian.iteye.com/
